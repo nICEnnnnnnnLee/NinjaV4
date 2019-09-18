@@ -16,3 +16,5 @@ taskPeriod = 5
 url_taskToDo = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master/task/todo.txt
 # 用于命令执行情况上报
 url_taskReport = https://api.github.com/repos/nICEnnnnnnnLee/AbcTest/contents/task/report.txt
+# 录制的原文件是否删除
+deleteOnchecked = false
