@@ -1,0 +1,18 @@
+
+# 监听端口，用于局域网内对设备的控制，如果更改，需要修改涉及到的Tasker脚本  
+httpServerPort = 8888
+# 下载文件夹，程序有啥要下载的东西都放这里
+downloadDir = download/
+# token 用于访问github
+token = xxxxxxxx
+# 在线设备上传的位置
+#例如访问{nICEnnnnnnnLee}的{AbcTest}仓库的{online-devices/onlines.txt}可以看到我的WiFi设备状态
+url_onlineDevices = https://api.github.com/repos/nICEnnnnnnnLee/AbcTest/contents/online-devices/onlines.txt
+# 对MAC地址的备注，例如访问{nICEnnnnnnnLee}的{AbcTest}仓库的{online-devices/remarks.txt}
+url_markOfMacs = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master/online-devices/remarks.txt
+# 云端命令获取并执行的周期(单位：min)
+taskPeriod = 5
+# 用于云端下发命令
+url_taskToDo = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master/task/todo.txt
+# 用于命令执行情况上报
+url_taskReport = https://api.github.com/repos/nICEnnnnnnnLee/AbcTest/contents/task/report.txt
