@@ -1,18 +1,18 @@
-
-# ¼àÌı¶Ë¿Ú£¬ÓÃÓÚ¾ÖÓòÍøÄÚ¶ÔÉè±¸µÄ¿ØÖÆ£¬Èç¹û¸ü¸Ä£¬ĞèÒªĞŞ¸ÄÉæ¼°µ½µÄTasker½Å±¾  
+ï»¿
+# ç›‘å¬ç«¯å£ï¼Œç”¨äºå±€åŸŸç½‘å†…å¯¹è®¾å¤‡çš„æ§åˆ¶ï¼Œå¦‚æœæ›´æ”¹ï¼Œéœ€è¦ä¿®æ”¹æ¶‰åŠåˆ°çš„Taskerè„šæœ¬  
 httpServerPort = 8888
-# ÏÂÔØÎÄ¼ş¼Ğ£¬³ÌĞòÓĞÉ¶ÒªÏÂÔØµÄ¶«Î÷¶¼·ÅÕâÀï
+# ä¸‹è½½æ–‡ä»¶å¤¹ï¼Œç¨‹åºæœ‰å•¥è¦ä¸‹è½½çš„ä¸œè¥¿éƒ½æ”¾è¿™é‡Œ
 downloadDir = download/
-# token ÓÃÓÚ·ÃÎÊgithub
+# token ç”¨äºè®¿é—®github
 token = xxxxxxxx
-# ÔÚÏßÉè±¸ÉÏ´«µÄÎ»ÖÃ
-#ÀıÈç·ÃÎÊ{nICEnnnnnnnLee}µÄ{AbcTest}²Ö¿âµÄ{online-devices/onlines.txt}¿ÉÒÔ¿´µ½ÎÒµÄWiFiÉè±¸×´Ì¬
+# åœ¨çº¿è®¾å¤‡ä¸Šä¼ çš„ä½ç½®
+#ä¾‹å¦‚è®¿é—®{nICEnnnnnnnLee}çš„{AbcTest}ä»“åº“çš„{online-devices/onlines.txt}å¯ä»¥çœ‹åˆ°æˆ‘çš„WiFiè®¾å¤‡çŠ¶æ€
 url_onlineDevices = https://api.github.com/repos/nICEnnnnnnnLee/AbcTest/contents/online-devices/onlines.txt
-# ¶ÔMACµØÖ·µÄ±¸×¢£¬ÀıÈç·ÃÎÊ{nICEnnnnnnnLee}µÄ{AbcTest}²Ö¿âµÄ{online-devices/remarks.txt}
+# å¯¹MACåœ°å€çš„å¤‡æ³¨ï¼Œä¾‹å¦‚è®¿é—®{nICEnnnnnnnLee}çš„{AbcTest}ä»“åº“çš„{online-devices/remarks.txt}
 url_markOfMacs = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master/online-devices/remarks.txt
-# ÔÆ¶ËÃüÁî»ñÈ¡²¢Ö´ĞĞµÄÖÜÆÚ(µ¥Î»£ºmin)
+# äº‘ç«¯å‘½ä»¤è·å–å¹¶æ‰§è¡Œçš„å‘¨æœŸ(å•ä½ï¼šmin)
 taskPeriod = 5
-# ÓÃÓÚÔÆ¶ËÏÂ·¢ÃüÁî
+# ç”¨äºäº‘ç«¯ä¸‹å‘å‘½ä»¤
 url_taskToDo = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master/task/todo.txt
-# ÓÃÓÚÃüÁîÖ´ĞĞÇé¿öÉÏ±¨
+# ç”¨äºå‘½ä»¤æ‰§è¡Œæƒ…å†µä¸ŠæŠ¥
 url_taskReport = https://api.github.com/repos/nICEnnnnnnnLee/AbcTest/contents/task/report.txt
