@@ -1,4 +1,7 @@
-﻿# 下载js - 用于斗鱼直播录制解析
+
+pkg update
+pkg install vi curl wget grep
+# 下载js - 用于斗鱼直播录制解析
 mkdir -p ~/workspace/ninjaV4/config
 cd ~/workspace/ninjaV4/config
 wget -O crypto-js.min.js https://gitee.com/NiceLeee/NinjaV4/raw/master/src/resources/crypto-js.min.js
