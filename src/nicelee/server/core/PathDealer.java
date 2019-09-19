@@ -122,11 +122,11 @@ public class PathDealer {
 					out.write(pathPrefix + controller.path());
 					out.write("\">");
 					out.write(controller.note());
-					out.write("</a>--------------------------<a href=\"");
+					out.write("</a><br/>\r\n<a href=\"");
 					out.write(pathPrefix + controller.path());
 					out.write("\">");
 					out.write(pathPrefix + controller.path());
-					out.write("</a></li>");
+					out.write("</a><br/>\r\n<br/>\r\n</li>");
 				}
 			}
 			out.write("<hr/>");

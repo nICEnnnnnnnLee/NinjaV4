@@ -12,8 +12,11 @@ public class GlobalConfig {
 
 	// http服务器监听端口
 	public static int httpServerPort = 8888;
+	
+	// dex包路径
+	public static String dexPath = "ninjaV4.dex";
 
-	// 命令获取周期
+	// 命令获取周期(min)
 	public static int taskPeriod = 5;
 	
 	// 配置文件存储位置
@@ -83,6 +86,9 @@ public class GlobalConfig {
 						break;
 					case "ipPrefixs":
 						ipPrefixs = matcher.group(2).trim().split(",");
+						break;
+					case "dexPath":
+						dexPath = matcher.group(2).trim();
 						break;
 					default:
 						break;

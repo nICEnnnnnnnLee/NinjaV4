@@ -1,31 +1,31 @@
-
-## :smile:ÄÜ×öÊ²Ã´  
-+ Ô¶³Ì²é¿´¼ÒÀïWiFiµÄÉè±¸Á¬½ÓÇé¿ö  
-+ Ô¶³Ì¿ØÖÆÊÖ»úÂ¼ÖÆBÕ¾/¶·Óã/»¢ÑÀ/¿ìÊÖÖ±²¥  
+ï»¿
+## :smile:èƒ½åšä»€ä¹ˆ  
++ è¿œç¨‹æŸ¥çœ‹å®¶é‡ŒWiFiçš„è®¾å¤‡è¿æ¥æƒ…å†µ  
++ è¿œç¨‹æ§åˆ¶æ‰‹æœºå½•åˆ¶Bç«™/æ–—é±¼/è™ç‰™/å¿«æ‰‹ç›´æ’­  
     
     
-## :smile:ĞèÒªÊ²Ã´  
-+ Ò»Ì¨AndroidÊÖ»ú(¿ÉÒÔ²»±ØRoot)   
-    + °²×°Termux
-    + °²×°Termux£ºTasker
-    + °²×°Tasker
-    + ²»Õ¦»áµÄ¿ÉÒÔ¿´¿´Ç°ÃæµÄ[²©ÎÄ](https://nICEnnnnnnnLee.github.io/blog/2019/09/07/android-linux-3/)  
-+ Ò»¸öGithubÕËºÅ  
-    + ´´½¨Repo£¬ÓÃÓÚ×´Ì¬»ñÈ¡ÓëÈÎÎñ·¢²¼  
-+ Ò»¸ö±àÒëºÃµÄdex³ÌĞò [ninjaV4.dex](https://github.com/nICEnnnnnnnLee/NinjaV4/releases)
+## :smile:éœ€è¦ä»€ä¹ˆ  
++ ä¸€å°Androidæ‰‹æœº(å¯ä»¥ä¸å¿…Root)   
+    + å®‰è£…Termux
+    + å®‰è£…Termuxï¼šTasker
+    + å®‰è£…Tasker
+    + ä¸å’‹ä¼šçš„å¯ä»¥çœ‹çœ‹å‰é¢çš„[åšæ–‡](https://nICEnnnnnnnLee.github.io/blog/2019/09/07/android-linux-3/)  
++ ä¸€ä¸ªGithubè´¦å·  
+    + åˆ›å»ºRepoï¼Œç”¨äºçŠ¶æ€è·å–ä¸ä»»åŠ¡å‘å¸ƒ  
++ ä¸€ä¸ªç¼–è¯‘å¥½çš„dexç¨‹åº [ninjaV4.dex](https://github.com/nICEnnnnnnnLee/NinjaV4/releases)
 
 
-## :smile:ÈçºÎ²¿Êğ  
+## :smile:å¦‚ä½•éƒ¨ç½²  
 <details>
 <summary>Github</summary>
 
 
-+ ĞÂ½¨Ò»¸öÓÃÓÚ¼øÈ¨µÄtoken
-+ ĞÂ½¨Ò»¸öRepo(¿ÉÒÔÊÇË½ÓĞ),ÀıÈç`AbcTest`
-+ ÎªÁË·½±ãÊ¶±ğÔÚÏßÉè±¸£¬Ìí¼Ó¶ÔMACµØÖ·µÄ±¸×¢£¬Èç`online-devices/remarks.txt`  
++ æ–°å»ºä¸€ä¸ªç”¨äºé‰´æƒçš„token  [é…ç½®Token](https://github.com/settings/tokens)  
++ æ–°å»ºä¸€ä¸ªRepo(å¯ä»¥æ˜¯ç§æœ‰),ä¾‹å¦‚`AbcTest`
++ ä¸ºäº†æ–¹ä¾¿è¯†åˆ«åœ¨çº¿è®¾å¤‡ï¼Œæ·»åŠ å¯¹MACåœ°å€çš„å¤‡æ³¨ï¼Œå¦‚`online-devices/remarks.txt`  
 ```
-2b:2b:2b:2b:2b:2b ÎÒµÄPC
-2b:2b:2b:2b:2b:2c ÎÒµÄÊÖ»ú
+2b:2b:2b:2b:2b:2b æˆ‘çš„PC
+2b:2b:2b:2b:2b:2c æˆ‘çš„æ‰‹æœº
 ```
 </details>
 
@@ -34,34 +34,36 @@
 <summary>Termux</summary>
 
 
-+ °²×°
-¸üÏêÏ¸µÄÇë·ÃÎÊ[²©¿Í](https://nICEnnnnnnnLee.github.io/blog/2019/09/17/android-linux-8/)
++ å®‰è£…  
+æ›´è¯¦ç»†çš„è¯·è®¿é—®[åšå®¢](https://nICEnnnnnnnLee.github.io/blog/2019/09/17/android-linux-8/)
 ```
 wget install.sh https://gitee.com/NiceLeee/NinjaV4/raw/master/auto-install/install.sh
 bash install.sh
 ```
 
-+ ÅäÖÃ
++ é…ç½®
 ```
 cd ~/workspace/ninjaV4/config
 vi app.config
 ```
-ÒÔÏÂÁĞ³ö±Ø²»¿ÉÉÙµÄ¹Ø¼üÅäÖÃ£¬ÆäËü¿É²Î¿¼`app.config.sample`
+ä»¥ä¸‹åˆ—å‡ºå¿…ä¸å¯å°‘çš„å…³é”®é…ç½®ï¼Œå…¶å®ƒå¯å‚è€ƒ`app.config.sample`
 ```
-# token ÓÃÓÚ·ÃÎÊgithub
+# dexåŒ…çš„è·¯å¾„(ç”¨äºåŒ…æ‰«æ)
+dexPath = ninjaV4.dex
+# token ç”¨äºè®¿é—®github
 token = xxxxxxxx
-# ÔÚÏßÉè±¸ÉÏ´«µÄÎ»ÖÃ
-#ÀıÈç·ÃÎÊ{nICEnnnnnnnLee}µÄ{AbcTest}²Ö¿âµÄ{online-devices/onlines.txt}¿ÉÒÔ¿´µ½ÎÒµÄWiFiÉè±¸×´Ì¬
+# åœ¨çº¿è®¾å¤‡ä¸Šä¼ çš„ä½ç½®
+#ä¾‹å¦‚è®¿é—®{nICEnnnnnnnLee}çš„{AbcTest}ä»“åº“çš„{online-devices/onlines.txt}å¯ä»¥çœ‹åˆ°æˆ‘çš„WiFiè®¾å¤‡çŠ¶æ€
 url_onlineDevices = https://api.github.com/repos/nICEnnnnnnnLee/AbcTest/contents/online-devices/onlines.txt
-# ¶ÔMACµØÖ·µÄ±¸×¢£¬ÀıÈç·ÃÎÊ{nICEnnnnnnnLee}µÄ{AbcTest}²Ö¿âµÄ{online-devices/remarks.txt}
+# å¯¹MACåœ°å€çš„å¤‡æ³¨ï¼Œä¾‹å¦‚è®¿é—®{nICEnnnnnnnLee}çš„{AbcTest}ä»“åº“çš„{online-devices/remarks.txt}
 url_markOfMacs = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master/online-devices/remarks.txt
-# ÓÃÓÚÔÆ¶ËÏÂ·¢ÃüÁî
+# ç”¨äºäº‘ç«¯ä¸‹å‘å‘½ä»¤
 url_taskToDo = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master/task/todo.txt
-# ÓÃÓÚÃüÁîÖ´ĞĞÇé¿öÉÏ±¨
+# ç”¨äºå‘½ä»¤æ‰§è¡Œæƒ…å†µä¸ŠæŠ¥
 url_taskReport = https://api.github.com/repos/nICEnnnnnnnLee/AbcTest/contents/task/report.txt
 ```
 
-+ ÔËĞĞ  
++ è¿è¡Œ  
 ```
 bash ~/run_ninjaV4.sh
 ```
@@ -71,59 +73,59 @@ bash ~/run_ninjaV4.sh
 <summary>Tasker</summary>
 
 
-+ ÖÜÆÚĞÔ´¥·¢WiFi×´Ì¬ÉÏ´«
-    + TaskerÌí¼ÓÈÎÎñ
-    + µ¯³ö¶Ô»°¿ò£¬Ñ¡Ôñ²å¼ş
-    + µ¯³ö¶Ô»°¿ò£¬Ñ¡Ôñtermux:task
-    + µ¯³ö¶Ô»°¿ò£¬Ñ¡Ôñ½Å±¾wifi_status_upload.sh
-    + ½¨ÒéÃ¿30·ÖÖÓ´¥·¢Ò»´Î
++ å‘¨æœŸæ€§è§¦å‘WiFiçŠ¶æ€ä¸Šä¼ 
+    + Taskeræ·»åŠ ä»»åŠ¡
+    + å¼¹å‡ºå¯¹è¯æ¡†ï¼Œé€‰æ‹©æ’ä»¶
+    + å¼¹å‡ºå¯¹è¯æ¡†ï¼Œé€‰æ‹©termux:task
+    + å¼¹å‡ºå¯¹è¯æ¡†ï¼Œé€‰æ‹©è„šæœ¬wifi_status_upload.sh
+    + å»ºè®®æ¯30åˆ†é’Ÿè§¦å‘ä¸€æ¬¡
     
-+ ÖÜÆÚĞÔ´¥·¢ÔÆ¶ËÃüÁî»ñÈ¡²¢Ö´ĞĞ
-    + TaskerÌí¼ÓÈÎÎñ
-    + µ¯³ö¶Ô»°¿ò£¬Ñ¡Ôñ²å¼ş
-    + µ¯³ö¶Ô»°¿ò£¬Ñ¡Ôñtermux:task
-    + µ¯³ö¶Ô»°¿ò£¬Ñ¡Ôñ½Å±¾get_command_and_run.sh
-    + ½¨ÒéÃ¿5·ÖÖÓ´¥·¢Ò»´Î
++ å‘¨æœŸæ€§è§¦å‘äº‘ç«¯å‘½ä»¤è·å–å¹¶æ‰§è¡Œ
+    + Taskeræ·»åŠ ä»»åŠ¡
+    + å¼¹å‡ºå¯¹è¯æ¡†ï¼Œé€‰æ‹©æ’ä»¶
+    + å¼¹å‡ºå¯¹è¯æ¡†ï¼Œé€‰æ‹©termux:task
+    + å¼¹å‡ºå¯¹è¯æ¡†ï¼Œé€‰æ‹©è„šæœ¬get_command_and_run.sh
+    + å»ºè®®æ¯5åˆ†é’Ÿè§¦å‘ä¸€æ¬¡
 </details>
 
     
-## :smile:ÈçºÎÊ¹ÓÃ  
+## :smile:å¦‚ä½•ä½¿ç”¨  
 <details>
-<summary>Í¬Ò»¾ÖÓòÍøÄÚ</summary>
+<summary>åŒä¸€å±€åŸŸç½‘å†…</summary>
 
 
-¼ÙÉèÊÖ»úIPÎª:**192.168.0.101**  
-ä¯ÀÀÆ÷·ÃÎÊ`http://192.168.0.101:8888/`,¿ÉÒÔµÃµ½ÈçÏÂ½á¹û£º  
+å‡è®¾æ‰‹æœºIPä¸º:**192.168.0.101**  
+æµè§ˆå™¨è®¿é—®`http://192.168.0.101:8888/`,å¯ä»¥å¾—åˆ°å¦‚ä¸‹ç»“æœï¼š  
 ![](https://nICEnnnnnnnLee.github.io/sources/archive/2019/09/index-page.png)   
 
 
-¸ù¾İÌáÊ¾²Ù×÷¼´¿É¡£  
-ÀıÈçÖ±²¥Â¼ÖÆ²âÊÔ×´Ì¬²éÑ¯£º    
+æ ¹æ®æç¤ºæ“ä½œå³å¯ã€‚  
+ä¾‹å¦‚ç›´æ’­å½•åˆ¶æµ‹è¯•çŠ¶æ€æŸ¥è¯¢ï¼š    
 ![](https://nICEnnnnnnnLee.github.io/sources/archive/2019/09/live-recorder.png)  
 </details>
 
 <details>
-<summary>Ô¶³Ì²Ù×÷</summary>
+<summary>è¿œç¨‹æ“ä½œ</summary>
 
 
-+ ²é¿´¼ÒÄÚµÄWiFiÁ¬½Ó×´Ì¬  
-ÔÚGithub¶ÔÓ¦µÄRepoÂ·¾¶²é¿´¼´¿É  
++ æŸ¥çœ‹å®¶å†…çš„WiFiè¿æ¥çŠ¶æ€  
+åœ¨Githubå¯¹åº”çš„Repoè·¯å¾„æŸ¥çœ‹å³å¯  
 ![](https://nICEnnnnnnnLee.github.io/sources/archive/2019/09/onliner.png)  
 
-+ ÈÃ¼ÒÄÚµÄAndroidÉè±¸Ö´ĞĞÄ³Ğ©ÌØ¶¨²Ù×÷  
-    + ÒòÎªÊÇÃ¿5·ÖÖÓÈ¡Ò»´Î£¬ÓĞÒ»¶¨ÑÓ³Ù¡£  
-    + ±à¼­ÅäÖÃÖ¸¶¨ºÃµÄÎ»ÖÃµÄÎÄ¼ş£¬Èç`task/todo.txt`
++ è®©å®¶å†…çš„Androidè®¾å¤‡æ‰§è¡ŒæŸäº›ç‰¹å®šæ“ä½œ  
+    + å› ä¸ºæ˜¯æ¯5åˆ†é’Ÿå–ä¸€æ¬¡ï¼Œæœ‰ä¸€å®šå»¶è¿Ÿã€‚  
+    + ç¼–è¾‘é…ç½®æŒ‡å®šå¥½çš„ä½ç½®çš„æ–‡ä»¶ï¼Œå¦‚`task/todo.txt`
 
-+ ÈÎÎñ¸ñÊ½ËµÃ÷  
-    + ÈÎÎñ±àºÅ£º ĞèÒªÑÏ¸ñµİÔö£¬±àºÅ³¬¹ı99999ÒÔºó´Ó0¿ªÊ¼
-    + ¼Æ»®Ê±¼ä£º ¼ÙÉè`18:15`,`18:20`¸÷È¡Ò»´ÎÈÎÎñ£¬Æó»®ÔÚ`18:18`,`18:19`µÄÈÎÎñ¶¼½«ÔÚ`18:20`×óÓÒÖ´ĞĞ£¬ÇÒÖ´ĞĞË³ĞòÃ»·¨È·¶¨
-    + ÃüÁîÄÚÈİ£º Óë¾ÖÓòÍøÄÚ¸÷ÃüÁîµÄÍøÖ·URLÒ»ÖÂ£¬ÀıÈç£º  
-        + Â¼ÖÆbÕ¾Ä³Ö÷²¥£º /live/start?liver=bili&id=6&qn=10000  
-        + Â¼ÖÆ¶·ÓãÄ³Ö÷²¥£º /live/start?liver=douyu&id=233223&qn=0  
-        + Í£Ö¹ËùÓĞÂ¼ÖÆ£º /live/stopAll
-        + ¸üĞÂWiFiÉè±¸Á¬½Ó×´Ì¬£º /onliner/status/upload
++ ä»»åŠ¡æ ¼å¼è¯´æ˜  
+    + ä»»åŠ¡ç¼–å·ï¼š éœ€è¦ä¸¥æ ¼é€’å¢ï¼Œç¼–å·è¶…è¿‡99999ä»¥åä»0å¼€å§‹
+    + è®¡åˆ’æ—¶é—´ï¼š å‡è®¾`18:15`,`18:20`å„å–ä¸€æ¬¡ä»»åŠ¡ï¼Œä¼åˆ’åœ¨`18:18`,`18:19`çš„ä»»åŠ¡éƒ½å°†åœ¨`18:20`å·¦å³æ‰§è¡Œï¼Œä¸”æ‰§è¡Œé¡ºåºæ²¡æ³•ç¡®å®š
+    + å‘½ä»¤å†…å®¹ï¼š ä¸å±€åŸŸç½‘å†…å„å‘½ä»¤çš„ç½‘å€URLä¸€è‡´ï¼Œä¾‹å¦‚ï¼š  
+        + å½•åˆ¶bç«™æŸä¸»æ’­ï¼š /live/start?liver=bili&id=6&qn=10000  
+        + å½•åˆ¶æ–—é±¼æŸä¸»æ’­ï¼š /live/start?liver=douyu&id=233223&qn=0  
+        + åœæ­¢æ‰€æœ‰å½•åˆ¶ï¼š /live/stopAll
+        + æ›´æ–°WiFiè®¾å¤‡è¿æ¥çŠ¶æ€ï¼š /onliner/status/upload
 ```
-ÈÎÎñ±àºÅ ¼Æ»®Ê±¼ä ÃüÁîÄÚÈİ
+ä»»åŠ¡ç¼–å· è®¡åˆ’æ—¶é—´ å‘½ä»¤å†…å®¹
 1 2019-09-16 14:14 /test
 2 2019-09-16 14:14 /cloud/history/delete
 3 2019-09-17 18:18 /onliner/status/upload
@@ -133,11 +135,61 @@ bash ~/run_ninjaV4.sh
 ```
 </details> 
 
+## :smile:å¦‚ä½•æ‰©å±•DIY  
++ åœ¨`nicelee.server.controller`ä¸‹å»ºç«‹æ–¹æ³•è§£å†³ç±»ï¼Œå¹¶åŠ ä¸Šæ³¨è§£`@Controller`  
++ åœ¨å¤„ç†è®¿é—®è¯·æ±‚æ—¶ï¼Œå°†ä¼šè‡ªåŠ¨è°ƒç”¨ä¸URLä¸€è‡´çš„æ–¹æ³•ï¼Œå¹¶è‡ªåŠ¨ä¼ å…¥URLé‡Œé¢çš„å‚æ•°  
++ æ›´è¯¦ç»†è¯·è§ [å¤„ç†éƒ½åœ¨Controllerçš„å¼±é¸¡æœåŠ¡å™¨](https://nICEnnnnnnnLee.github.io/blog/2019/09/09/android-linux-6/)  
 
-## :smile:µÚÈı·½Ê¹ÓÃÉùÃ÷   
-+ Ê¹ÓÃ[JSON.org](https://github.com/stleary/JSON-java)¿â×ö¼òµ¥µÄJson½âÎö[![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/stleary/JSON-java/blob/master/LICENSE) 
-+ Ê¹ÓÃ[Crypto-js](https://github.com/brix/crypto-js)·Âä¯ÀÀÆ÷Éú³É¶·ÓãÖ±²¥Â¼ÖÆtoken[![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/brix/crypto-js/blob/develop/LICENSE) 
-+ Ê¹ÓÃ[Rhino](https://github.com/brix/crypto-js)¿âÔÚ¶·ÓãÖ±²¥Â¼ÖÆÉú³ÉtokenÊ±µ÷ÓÃÁËjs[![](https://img.shields.io/badge/license-MPL%202.0-green.svg)](https://github.com/mozilla/rhino/blob/master/LICENSE.txt) 
+<details>
+<summary>ä¸¾ä¾‹</summary>
+
+
+```java
+package nicelee.server.controller;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+
+import nicelee.common.annotation.Controller;
+import nicelee.common.annotation.Value;
+
+@Controller(path = "/test", note = "æµ‹è¯•ç±»")
+public class ControllerTester {
+
+	@Controller(path = "/helloWorld", note = "Hello Worldå¤„ç†æ–¹æ³•1")
+	public String test1(BufferedWriter out, @Value(key = "param1") String param1) throws IOException {		
+		out.write("è°ƒç”¨çš„æ–¹æ³•ä¸ºï¼šhelloWorld<br/>\r\n");
+		out.write("ä¼ å…¥çš„å‚æ•°param1 :" + param1);
+		return null;
+	}
+    
+	@Controller(path = "/helloWorld2", note = "Hello Worldå¤„ç†æ–¹æ³•2")
+	public String test2(@Value(key = "param1") String param1) throws IOException {
+		StringBuffer sb = new StringBuffer();
+		sb.append("è°ƒç”¨çš„æ–¹æ³•ä¸ºï¼šhelloWorld<br/>\r\n");
+		sb.append("ä¼ å…¥çš„å‚æ•°param1 :");
+		sb.append(param1);
+		return  sb.toString();
+	}
+}
+```
+</details>
+
+
+## å®ç°åŠŸèƒ½çš„å‚è€ƒå¼•ç”¨  
++ [è·å–é‚»å±…MACåœ°å€](https://github.com/nICEnnnnnnnLee/NeighborFinder)  
++ [ç›´æ’­å½•åˆ¶](https://github.com/nICEnnnnnnnLee/BilibiliLiveRecorder)  
++ [ç®€å•çš„æ–‡ä»¶æœåŠ¡å™¨](https://github.com/nICEnnnnnnnLee/FileHttpServer)  
++ [é€šè¿‡HTTPè¯·æ±‚ä¸Šä¼ /æ›´æ–°Githubæ–‡ä»¶](https://github.com/nICEnnnnnnnLee/FileUploader4Github)  
++ [DexåŒ…è§£ææ‰«æ](https://gitee.com/mazaiting/app_protection/tree/master/ParseDEX)  
+
+## :smile:ç¬¬ä¸‰æ–¹ä½¿ç”¨å£°æ˜   
++ ä½¿ç”¨[JSON.org](https://github.com/stleary/JSON-java)åº“åšç®€å•çš„Jsonè§£æ[![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/stleary/JSON-java/blob/master/LICENSE) 
++ ä½¿ç”¨[Crypto-js](https://github.com/brix/crypto-js)ä»¿æµè§ˆå™¨ç”Ÿæˆæ–—é±¼ç›´æ’­å½•åˆ¶token[![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/brix/crypto-js/blob/develop/LICENSE) 
++ ä½¿ç”¨[Rhino](https://github.com/brix/crypto-js)åº“åœ¨æ–—é±¼ç›´æ’­å½•åˆ¶ç”Ÿæˆtokenæ—¶è°ƒç”¨äº†js[![](https://img.shields.io/badge/license-MPL%202.0-green.svg)](https://github.com/mozilla/rhino/blob/master/LICENSE.txt) 
+
+## æ›´æ–°æ—¥å¿—
+[UPDATE.md](https://github.com/nICEnnnnnnnLee/NinjaV4/blob/master/UPDATE.md)
 
 ## :smile:LICENSE
 ```

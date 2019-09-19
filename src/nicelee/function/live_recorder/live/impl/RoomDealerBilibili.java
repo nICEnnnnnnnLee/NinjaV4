@@ -30,10 +30,8 @@ public class RoomDealerBilibili extends RoomDealer{
 			// 获取基础信息
 			String basicInfoUrl = String.format("https://api.live.bilibili.com/room/v1/Room/get_info?id=%s&from=room", shortId);
 			String jsonStr = util.getContent(basicInfoUrl, headers.getBiliLiveJsonAPIHeaders(Long.parseLong(shortId)), null);
-//			Logger.println(jsonStr);
-			System.out.println(basicInfoUrl);
-			System.out.println(jsonStr);
-			
+			Logger.println(jsonStr);
+
 			JSONObject jObj = new JSONObject(jsonStr).getJSONObject("data");
 			roomInfo.setRoomId("" + jObj.getLong("room_id"));
 			roomInfo.setUserId(jObj.getLong("uid"));
@@ -110,11 +108,6 @@ public class RoomDealerBilibili extends RoomDealer{
 	@Override
 	public void startRecord(String url, String fileName, String shortId) {
 		util.download(url, fileName + ".flv", headers.getBiliLiveRecordHeaders(url, Long.parseLong(shortId)));
-	}
-
-	@Override
-	public String getLiver() {
-		return liver;
 	}
 
 }

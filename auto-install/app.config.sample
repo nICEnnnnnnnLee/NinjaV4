@@ -1,4 +1,4 @@
-﻿
+
 # 监听端口，用于局域网内对设备的控制，如果更改，需要修改涉及到的Tasker脚本  
 httpServerPort = 8888
 # 下载文件夹，程序有啥要下载的东西都放这里
@@ -18,3 +18,5 @@ url_taskToDo = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master/t
 url_taskReport = https://api.github.com/repos/nICEnnnnnnnLee/AbcTest/contents/task/report.txt
 # 录制的原文件是否删除
 deleteOnchecked = false
+# dex包的路径(用于包扫描)
+dexPath = ninjaV4.dex

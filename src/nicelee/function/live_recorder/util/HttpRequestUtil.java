@@ -178,7 +178,7 @@ public class HttpRequestUtil {
 			String urlNameString = url;
 			URL realUrl = new URL(urlNameString);
 			HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
-			conn.setConnectTimeout(10000);
+			conn.setConnectTimeout(30000);
 			conn.setReadTimeout(120000);
 			for (Map.Entry<String, String> entry : headers.entrySet()) {
 				conn.setRequestProperty(entry.getKey(), entry.getValue());

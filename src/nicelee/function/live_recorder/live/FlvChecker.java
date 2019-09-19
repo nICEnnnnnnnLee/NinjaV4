@@ -8,18 +8,18 @@ import java.util.regex.Pattern;
 
 import nicelee.function.live_recorder.util.Logger;
 
+
 /**
  * 原理 https://www.cnblogs.com/lidabo/p/9018548.html
  */
 public class FlvChecker {
 
 	public static void main(String[] args) throws IOException {
-//		args = new String[] { "D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\LOL英雄联盟-秒杀怪-qtw666666 的kuaishou直播 2019-09-18 13.08-0-checked2.flv" };
-//		args = new String[] {
-//				"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\英雄联盟辉哥-教学主播-Yxlmhuige 的kuaishou直播 2019-09-18 13.18-0-checked1.flv" };
-//		args = new String[] { "D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\果哝双子-868405 的bili直播 2019-08-28 17.39.flv" };
-//		args = new String[] { "D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\周末yuuko-3096485 的bili直播 2019-09-18 15.20-0_flv.flv" };
-		args = new String[] { "D:\\Workspace\\javaweb-springboot\\ASimpleWork\\download\\鹿鹿宝贝阿-4090043 的douyu直播 2019-09-18 16.49-0.flv" };
+//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\虎牙-原始样本1.flv" };
+//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\斗鱼-原始样本1.flv" };
+//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\B站-原始样本1.flv" };
+//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\快手-原始样本1.flv" };
+//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\快手-原始样本2.flv" };
 
 		FlvChecker fChecker = new FlvChecker();
 		if (args != null && args.length >= 1) {
@@ -39,7 +39,7 @@ public class FlvChecker {
 	 * @throws IOException
 	 */
 	// 用于统计时间戳
-	private int lastTimestampRead[] = {-1, -1}, lastTimestampWrite[] = {-1, -1};
+	private int lastTimestampRead[] = { -1, -1 }, lastTimestampWrite[] = { -1, -1 };
 	// 用于缓冲
 	public static byte[] buffer = new byte[1024 * 1024 * 16];
 
@@ -76,7 +76,7 @@ public class FlvChecker {
 			file.delete();
 		}
 	}
-
+	
 	/**
 	 * @param raf
 	 * @param rafNew
@@ -88,7 +88,7 @@ public class FlvChecker {
 			int remain = 40;
 			boolean isFirstScriptTag = true;
 			int timestamp = 0;
-			while (true ) {//&& remain>=0
+			while (true) {// && remain>=0
 				remain--;
 				// 读取前一个tag size
 				int predataSize = readBytesToInt(raf, 4);
@@ -112,7 +112,7 @@ public class FlvChecker {
 					timestamp = readBytesToInt(raf, 3);
 					int timestampEx = raf.read() << 24;
 					timestamp += timestampEx;
-					dealTimestamp(rafNew, timestamp, 0);
+					dealTimestamp(rafNew, timestamp, tagType - 8);
 					raf.read(buffer, 0, 3 + dataSize);
 					rafNew.write(buffer, 0, 3 + dataSize);
 
@@ -132,13 +132,7 @@ public class FlvChecker {
 						rafNew.write(0); // 时间戳扩展 0
 						raf.read(buffer, 0, 3 + dataSize);
 						rafNew.write(buffer, 0, 3 + dataSize);
-					}
-//					else { // 跳过该tag
-//						// tag data size 3个字节。表示tag data的长度。从streamd id 后算起。
-//						int dataSize = readBytesToInt(raf, 3);
-//						raf.skipBytes(7 + dataSize);
-//					}
-					else {
+					}else {
 						Logger.println("第二个scripts脚本");
 						// 当有第二个scripts脚本时
 						// 1. 从第二个script tag起始新创建一份文件
@@ -197,14 +191,14 @@ public class FlvChecker {
 	private boolean dealTimestamp(RandomAccessFile raf, int timestamp, int tagType) throws IOException {
 		Logger.print("上一帧读取timestamps 为：" + lastTimestampRead[tagType]);
 		Logger.print("上一帧写入timestamps 为：" + lastTimestampWrite[tagType]);
-		
+
 		// 如果是首帧
-		if(lastTimestampRead[tagType] == -1) {
+		if (lastTimestampRead[tagType] == -1) {
 			lastTimestampWrite[tagType] = 0;
-		}else if (timestamp >= lastTimestampRead[tagType]) {// 如果时序正常
+		} else if (timestamp >= lastTimestampRead[tagType]) {// 如果时序正常
 			// 间隔十分巨大(1s)，那么重新开始即可
 			if (timestamp > lastTimestampRead[tagType] + 1000) {
-				lastTimestampWrite[tagType]+= 10;
+				lastTimestampWrite[tagType] += 10;
 				Logger.print("---");
 			} else {
 				lastTimestampWrite[tagType] = timestamp - lastTimestampRead[tagType] + lastTimestampWrite[tagType];
@@ -213,10 +207,10 @@ public class FlvChecker {
 				// 如果间隔不大，那么如实反馈
 			if (lastTimestampRead[tagType] - timestamp < 5 * 1000) {
 				int tmp = timestamp - lastTimestampRead[tagType] + lastTimestampWrite[tagType];
-				tmp = tmp >0 ? tmp: 1;
+				tmp = tmp > 0 ? tmp : 1;
 				lastTimestampWrite[tagType] = tmp;
 			} else {// 间隔十分巨大，那么重新开始即可
-				lastTimestampWrite[tagType]+= 10;
+				lastTimestampWrite[tagType] += 10;
 				Logger.print("---rewind");
 			}
 		}

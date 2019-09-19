@@ -3,6 +3,7 @@ package nicelee.function.live_recorder.live.impl;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,6 +15,7 @@ import nicelee.function.live_recorder.live.RoomDealer;
 import nicelee.function.live_recorder.live.domain.RoomInfo;
 import nicelee.function.live_recorder.util.Logger;
 import nicelee.function.live_recorder.util.M3u8Downloader;
+
 
 public class RoomDealerHuya extends RoomDealer {
 
@@ -221,10 +223,6 @@ public class RoomDealerHuya extends RoomDealer {
 			} catch (Exception e) {
 			}
 		}
-	}
-	
-	@Override
-	public String getLiver() {
-		return liver;
+		
 	}
 }

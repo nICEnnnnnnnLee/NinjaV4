@@ -11,7 +11,6 @@ public abstract class RoomDealer {
 	public Integer currentIndex = 0; // 当前任务编号
 	protected String cookie;
 	
-	public abstract String getLiver();
 	public abstract String getType();
 	/**
 	  *  根据url的shortId获取房间信息

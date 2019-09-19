@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 
 public class RoomInfo {
 
+	String liver;
 	String shortId; // 直播url 里面的id， 可能与roomId相同
 	String roomId;
 	long userId;  // 主播id
@@ -114,5 +115,13 @@ public class RoomInfo {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getLiver() {
+		return liver;
+	}
+
+	public void setLiver(String liver) {
+		this.liver = liver;
 	}
 }

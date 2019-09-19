@@ -24,4 +24,4 @@ echo "kill -9 \`ps -ef|grep java|grep -v grep|awk '{print \$1}'\`" > stop_ninjaV
 # 下载主程序 
 # 因为国内Github经常抽风，放在最后，不行的话去码云下载
 cd ~/workspace/ninjaV4
-wget -4 -O ninjaV4.dex  --user-agent="NinjaV4 App" https://github.com/nICEnnnnnnnLee/NinjaV4/releases/download/1.0.0/NinjaV4-1.0.0.dex --no-check-certificate
+wget -4 -O ninjaV4.dex  --user-agent="NinjaV4 App" https://github.com/nICEnnnnnnnLee/NinjaV4/releases/download/1.0.1/NinjaV4-1.0.1.dex --no-check-certificate

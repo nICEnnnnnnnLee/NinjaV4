@@ -6,7 +6,9 @@ import nicelee.server.core.SocketServer;
 
 public class MainServer {
 
+	final static String version = "V1.0.1";
 	public static void main(String[] args) {
+		System.out.println("当前版本为 NinjaV4-" + version);
 		// 初始化配置
 		GlobalConfig.init();
 		

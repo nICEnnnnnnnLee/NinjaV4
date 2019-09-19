@@ -20,7 +20,7 @@ import nicelee.global.GlobalConfig;
 
 public class Recorder {
 
-	final static String version = "v1.7";
+	final static String version = "v1.8";
 	boolean autoCheck;
 	boolean deleteOnchecked;
 	int maxFailCnt;
@@ -65,7 +65,7 @@ public class Recorder {
 			roomDealer = getRoomDealer(liver);
 			// 获取房间信息
 			RoomInfo roomInfo = roomDealer.getRoomInfo(shortId);
-
+			roomInfo.setLiver(liver);
 			// 查看是否在线
 			if (roomInfo != null && roomInfo.getLiveStatus() != 1) {
 				System.out.println("当前没有在直播");
@@ -151,7 +151,7 @@ public class Recorder {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH.mm");
 		String filename = String.format("%s-%s 的%s直播 %s-%d",
 				roomInfo.getUserName().replaceAll("[\\\\|\\/|:\\*\\?|<|>|\\||\\\"$]", "."), roomInfo.getShortId(),
-				roomDealer.getLiver(), sdf.format(new Date()), fileList.size());
+				roomInfo.getLiver(), sdf.format(new Date()), fileList.size());
 		roomDealer.startRecord(url, filename, roomInfo.getShortId());// 此处一直堵塞， 直至停止
 		File file = roomDealer.util.getFileDownload();
 		File partFile = new File(file.getParent(), filename + roomDealer.getType() + ".part");

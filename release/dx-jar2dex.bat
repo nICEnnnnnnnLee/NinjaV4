@@ -1,0 +1,1 @@
+dx --dex --output=ninjaV4.dex ninjaV4.jar
