@@ -37,7 +37,7 @@
 + 安装  
 更详细的请访问[博客](https://nICEnnnnnnnLee.github.io/blog/2019/09/17/android-linux-8/)
 ```
-wget install.sh https://gitee.com/NiceLeee/NinjaV4/raw/master/auto-install/install.sh
+wget -O install.sh https://gitee.com/NiceLeee/NinjaV4/raw/master/auto-install/install.sh
 bash install.sh
 ```
 
