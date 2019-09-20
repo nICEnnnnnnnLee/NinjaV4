@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import nicelee.PackageScanLoader;
 import nicelee.function.live_recorder.enums.StatusEnum;
@@ -149,6 +150,7 @@ public class Recorder {
 	private void record(RoomDealer roomDealer, RoomInfo roomInfo, String url, List<String> fileList) {
 		title = roomInfo.getUserName();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH.mm");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 		String filename = String.format("%s-%s 的%s直播 %s-%d",
 				roomInfo.getUserName().replaceAll("[\\\\|\\/|:\\*\\?|<|>|\\||\\\"$]", "."), roomInfo.getShortId(),
 				roomInfo.getLiver(), sdf.format(new Date()), fileList.size());
