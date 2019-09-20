@@ -35,8 +35,23 @@ public class RoomDealerKuaishou extends RoomDealer {
 		roomInfo.setShortId(shortId);
 		try {
 
-			JSONObject user = getUserInfoObj(shortId);
+			JSONObject user = null;
 			JSONObject live = null;
+			try {
+				user = getUserInfoObj(shortId);
+				// 真实房间id
+				roomInfo.setRoomId(shortId);
+				// 房间主id
+				roomInfo.setUserId(user.getLong("userId"));
+				// 房间主名称
+				roomInfo.setUserName(user.getString("name"));
+				// 直播描述
+				roomInfo.setDescription(user.getString("description"));
+			}catch (Exception e) {
+				roomInfo.setUserId(0);
+				roomInfo.setUserName("空");
+				roomInfo.setDescription("空");
+			}
 			try {
 				live = getLiveInfoObj(shortId);
 				// 直播状态信息
@@ -47,16 +62,6 @@ public class RoomDealerKuaishou extends RoomDealer {
 			} catch (Exception e) {
 				roomInfo.setLiveStatus(0);
 			}
-
-			// 真实房间id
-			roomInfo.setRoomId(shortId);
-			// 房间主id
-			roomInfo.setUserId(user.getLong("userId"));
-			// 房间主名称
-			roomInfo.setUserName(user.getString("name"));
-
-			// 直播描述
-			roomInfo.setDescription(user.getString("description"));
 
 			if (roomInfo.getLiveStatus() == 1) {
 				roomInfo.setTitle(live.optString("caption", roomInfo.getDescription()));
