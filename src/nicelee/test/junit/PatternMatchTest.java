@@ -71,8 +71,6 @@ public class PatternMatchTest {
 		}).start();
 		while (true) {
 			System.out.println("Thread-Main ---");
-			Entry<String, String>[] entries = new Entry[obj.size()];
-			entries = obj.entrySet().toArray(entries) ;
 			for (Entry<String, String> entry : obj.entrySet()) {
 				System.out.println("Thread-Main ---" + entry.getKey());
 			}
