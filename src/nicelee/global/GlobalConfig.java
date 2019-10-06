@@ -8,6 +8,8 @@ import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import nicelee.server.MainServer;
+
 public class GlobalConfig {
 
 	// http服务器监听端口
@@ -26,6 +28,16 @@ public class GlobalConfig {
 	// 下载文件存储位置
 	public static File downloadDir = new File("download/");
 
+	// QQ 机器人配置
+	public static String coolQ_httpApi_Addr = "http://127.0.0.1:5701";
+	
+	// 邮件发送配置
+	public static String mail_senderAddress = "sender@163.com";
+	public static String mail_recipientAddress = "receiver@163.com";
+	public static String mail_senderAccount = "sender@163.com";
+	public static String mail_senderPassword = "xxx";
+	
+	
 	// url-在线设备存放位置  上传
 	public static String url_onlineDevices = null;
 	// url-Mac地址备注存放位置 下载
@@ -56,44 +68,26 @@ public class GlobalConfig {
 			while ((config = buReader.readLine()) != null) {
 				Matcher matcher = patternConfig.matcher(config);
 				if (matcher.find()) {
-					switch (matcher.group(1)) {
-					case "httpServerPort":
-						httpServerPort = Integer.parseInt(matcher.group(2).trim());
-						break;
-					case "taskPeriod":
-						taskPeriod = Integer.parseInt(matcher.group(2).trim());
-						break;
-					case "downloadDir":
-						downloadDir = new File(matcher.group(2).trim());
-						break;
-					case "url_onlineDevices":
-						url_onlineDevices = matcher.group(2).trim();
-						break;
-					case "url_markOfMacs":
-						url_markOfMacs = matcher.group(2).trim();
-						break;
-					case "url_taskToDo":
-						url_taskToDo = matcher.group(2).trim();
-						break;
-					case "url_taskReport":
-						url_taskReport = matcher.group(2).trim();
-						break;
-					case "token":
-						token = matcher.group(2).trim();
-						break;
-					case "deleteOnchecked":
-						deleteOnchecked = matcher.group(2).trim().equals("true");
-						break;
-					case "ipPrefixs":
-						ipPrefixs = matcher.group(2).trim().split(",");
-						break;
-					case "dexPath":
-						dexPath = matcher.group(2).trim();
-						break;
-					default:
-						break;
-					}
-					System.out.printf("  key-->value:  %s --> %s\r\n", matcher.group(1), matcher.group(2));
+					try {
+						Field f = GlobalConfig.class.getField(matcher.group(1));
+						if(f != null) {
+							System.out.printf("  key-->value:  %s --> %s\r\n", matcher.group(1), matcher.group(2));
+							if(f.getType().equals(String.class)) {
+								f.set(null, matcher.group(2).trim());
+							}else if(f.getType().equals(File.class)) {
+								f.set(null, new File(matcher.group(2).trim()));
+							}else if(f.getType().equals(int.class)) {
+								f.set(null, Integer.parseInt(matcher.group(2).trim()));
+							}else if(f.getType().equals(boolean.class)) {
+								f.set(null, matcher.group(2).trim().equals("true"));
+							}else if(f.getType().equals(String[].class)) {
+								f.set(null, matcher.group(2).trim().split(","));
+							}else {
+								System.err.printf("当前尚未配置%s - %s\n", f.getType().toString(), matcher.group(1));
+							}
+						}
+					} catch (Exception e) {
+					} 
 				}
 			}
 		} catch (IOException e) {
@@ -132,4 +126,38 @@ public class GlobalConfig {
 			}
 		}
 	}
+	
+	public static String baseDirectory() {
+        try {
+            String path = ClassLoader.getSystemResource("").getPath();
+            if (path == null || "".equals(path))
+                return getProjectPath();
+            return path;
+        } catch (Exception ignored) {
+        	return getProjectPath();
+        }
+    }
+
+	private static String getProjectPath() {
+        java.net.URL url = MainServer.class.getProtectionDomain().getCodeSource()
+                .getLocation();
+        String filePath = null;
+        try {
+            filePath = java.net.URLDecoder.decode(url.getPath(), "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (filePath.endsWith(".jar")) {
+        	int lastIndex = filePath.lastIndexOf("/");
+        	System.out.println(lastIndex);
+        	if(lastIndex > -1) {
+        		filePath = filePath.substring(0, lastIndex + 1);
+        	}else {
+        		filePath = filePath.substring(0, filePath.lastIndexOf("\\") + 1);
+        	}
+        }
+        File file = new File(filePath);
+        filePath = file.getAbsolutePath();
+        return filePath;
+    }
 }

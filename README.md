@@ -187,6 +187,8 @@ public class ControllerTester {
 + 使用[JSON.org](https://github.com/stleary/JSON-java)库做简单的Json解析[![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/stleary/JSON-java/blob/master/LICENSE) 
 + 使用[Crypto-js](https://github.com/brix/crypto-js)仿浏览器生成斗鱼直播录制token[![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/brix/crypto-js/blob/develop/LICENSE) 
 + 使用[Rhino](https://github.com/brix/crypto-js)库在斗鱼直播录制生成token时调用了js[![](https://img.shields.io/badge/license-MPL%202.0-green.svg)](https://github.com/mozilla/rhino/blob/master/LICENSE.txt) 
++ 使用[JavaMail](https://github.com/javaee/javamail)发送邮件[![](https://img.shields.io/badge/license-CDDL-green.svg)](https://javaee.github.io/javamail/LICENSE) 
+
 
 ## :smile:更新日志
 [UPDATE.md](https://github.com/nICEnnnnnnnLee/NinjaV4/blob/master/UPDATE.md)
