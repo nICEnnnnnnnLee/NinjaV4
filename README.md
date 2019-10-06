@@ -5,10 +5,11 @@
 + QQ机器人(已有复读机Demo，需要有酷Q使用基础)
 
 ## :smile:Opssssss
-算了，也不一定要手机，**Jar**包也可以运行，周期性触发直接**Timer**即可
++ 算了，也不一定要手机，**Jar**包也可以运行。
++ 下文解决Android熄屏引起的问题用到了**Tasker**，如果其它系统调**Jar**包的话，使用直接`crontab -e`，或者在代码里补上**Timer**周期调用即可
     
 ## :smile:需要什么  
-+ 一台Android手机(可以不必Root)   
++ 一台无所谓Root的Android手机或者其它JVM终端   
     + 安装Termux
     + 安装Termux：Tasker
     + 安装Tasker
@@ -20,7 +21,7 @@
 
 ## :smile:如何部署  
 <details>
-<summary>Github</summary>
+<summary>Github(局域网可跳过)</summary>
 
 
 + 新建一个用于鉴权的token  [配置Token](https://github.com/settings/tokens)  
@@ -34,7 +35,7 @@
 
 
 <details>
-<summary>Termux</summary>
+<summary>Termux(非Android只需注意配置)</summary>
 
 
 + 安装  
@@ -49,7 +50,8 @@ bash install.sh
 cd ~/workspace/ninjaV4/config
 vi app.config
 ```
-以下列出必不可少的关键配置，其它可参考`app.config.sample`
+以下列出必不可少的关键配置，其它可参考`app.config.sample`  
+若仅局域网使用，关于Github的配置乱填即可，但不可不填  
 ```
 # dex包的路径(用于包扫描，非dalvikvm可以不必配置)
 dexPath = ninjaV4.dex
@@ -82,7 +84,7 @@ bash ~/run_ninjaV4.sh
 </details>
  
 <details>
-<summary>Tasker</summary>
+<summary>Tasker(非Android可跳过)</summary>
 
 
 + 周期性触发WiFi状态上传
