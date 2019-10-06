@@ -6,10 +6,12 @@
 
 ## :smile:Opssssss
 + 算了，也不一定要手机，**Jar**包也可以运行。
-+ 下文解决Android熄屏引起的问题用到了**Tasker**，如果其它系统调**Jar**包的话，使用直接`crontab -e`，或者在代码里补上**Timer**周期调用即可
++ 下文解决Android熄屏引起的问题用到了**Tasker**  
+  但是如果其它系统调**Jar**包的话，使用直接`crontab -e`  
+  或者在代码里补上**Timer**周期调用即可
     
-## :smile:需要什么  
-+ 一台无所谓Root的Android手机或者其它JVM终端   
+## :smile:需要什么(dex)  
++ 一台Android手机(可不必root)   
     + 安装Termux
     + 安装Termux：Tasker
     + 安装Tasker
@@ -18,10 +20,13 @@
     + 创建Repo，用于状态获取与任务发布  
 + 一个编译好的dex程序 [ninjaV4.dex](https://github.com/nICEnnnnnnnLee/NinjaV4/releases)
 
+## :smile:需要什么(jar)  
++ 一台装好Java环境的小鸡  
++ 一个编译好的jar程序 [ninjaV4.jar](https://github.com/nICEnnnnnnnLee/NinjaV4/releases)
 
 ## :smile:如何部署  
 <details>
-<summary>Github(局域网可跳过)</summary>
+<summary>Github(仅局域网使用可跳过)</summary>
 
 
 + 新建一个用于鉴权的token  [配置Token](https://github.com/settings/tokens)  
