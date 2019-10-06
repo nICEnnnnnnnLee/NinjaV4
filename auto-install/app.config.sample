@@ -20,3 +20,12 @@ url_taskReport = https://api.github.com/repos/nICEnnnnnnnLee/AbcTest/contents/ta
 deleteOnchecked = false
 # dex包的路径(用于包扫描)
 dexPath = ninjaV4.dex
+# 163邮件提醒配置
+mail_senderAddress = sender@163.com
+mail_recipientAddress = reciever@163.com
+mail_senderAccount = senderAccount(一般与邮箱同名)
+mail_senderPassword = 密码
+# 用于QQ机器人发送消息
+# http插件： https://github.com/richardchien/coolq-http-api
+## 插件所在的服务器ip + 配置端口(用于信息发送用途)
+coolQ_httpApi_Addr = http://192.168.0.103:5701
