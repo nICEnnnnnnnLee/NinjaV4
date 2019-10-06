@@ -15,16 +15,20 @@ import nicelee.function.live_recorder.util.Logger;
 public class FlvChecker {
 
 	public static void main(String[] args) throws IOException {
-//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\虎牙-原始样本1.flv" };
-//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\斗鱼-原始样本1.flv" };
-//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\B站-原始样本1.flv" };
-//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\快手-原始样本1.flv" };
-//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\快手-原始样本2.flv" };
+//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\样本\\虎牙-原始样本1.flv" };
+//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\样本\\斗鱼-原始样本1.flv" };
+//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\样本\\B站-原始样本1.flv" };
+//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\样本\\快手-原始样本1.flv" };
+//		args = new String[] {"D:\\Workspace\\javaweb-springboot\\BilibiliLiveRecord\\download\\样本\\快手-原始样本2.flv" };
 
 		FlvChecker fChecker = new FlvChecker();
+		boolean splitScripts = false;
+		if(args.length >= 2) {
+			splitScripts = "true".equals(args[1]);
+		}
 		if (args != null && args.length >= 1) {
 			System.out.println("校对时间戳开始...");
-			fChecker.check(args[0], false);
+			fChecker.check(args[0], false, splitScripts);
 //			fChecker.checkFromEnd(args[0]);
 			System.out.println("校对时间戳完毕。");
 		} else {
@@ -44,10 +48,13 @@ public class FlvChecker {
 	public static byte[] buffer = new byte[1024 * 1024 * 16];
 
 	public void check(String path) throws IOException {
-		check(path, false);
+		check(path, false, false);
+	}
+	public void check(String path, boolean deleteOnchecked) throws IOException {
+		check(path, deleteOnchecked, false);
 	}
 
-	public void check(String path, boolean deleteOnchecked) throws IOException {
+	public void check(String path, boolean deleteOnchecked, boolean splitScripts) throws IOException {
 		Logger.println("校对时间戳开始...");
 		File file = new File(path);
 		RandomAccessFile raf = new RandomAccessFile(file, "r");
@@ -67,7 +74,7 @@ public class FlvChecker {
 		raf.read(buffer, 0, 9);
 		rafNew.write(buffer, 0, 9);
 		// 处理Tag内容
-		checkTag(raf, rafNew, fileNew);
+		checkTag(raf, rafNew, fileNew, splitScripts);
 
 		raf.close();
 		rafNew.close();
@@ -81,7 +88,7 @@ public class FlvChecker {
 	 * @param raf
 	 * @param rafNew
 	 */
-	private void checkTag(RandomAccessFile raf, RandomAccessFile rafNew, File fileNew) {
+	private void checkTag(RandomAccessFile raf, RandomAccessFile rafNew, File fileNew, boolean splitScripts) {
 		// 用于排除无效尾巴帧
 		long currentLength = 9L, latsValidLength = currentLength;
 		try {
@@ -92,6 +99,7 @@ public class FlvChecker {
 				remain--;
 				// 读取前一个tag size
 				int predataSize = readBytesToInt(raf, 4);
+				//System.out.println("前一个 tagSize：" + predataSize);
 				rafNew.write(buffer, 0, 4);
 				// 记录当前新文件位置，若下一tag无效，则需要回退
 				latsValidLength = currentLength;
@@ -118,7 +126,11 @@ public class FlvChecker {
 
 				} else if (tagType == 18) { // 18 scripts
 					Logger.println("scripts");
-					if (isFirstScriptTag) {
+					if (!splitScripts || isFirstScriptTag) {
+						// 如果是scripts脚本，默认为第一个tag，此时将前一个tag Size 置零
+						rafNew.seek(rafNew.getFilePointer() -4);
+						byte[] zeroTimestamp = new byte[] { 0, 0, 0, 0 };
+						rafNew.write(zeroTimestamp);
 						rafNew.write(tagType);
 						isFirstScriptTag = false;
 
@@ -160,7 +172,7 @@ public class FlvChecker {
 						raf.seek(pos - 5);
 						// 2. 处理新文件
 						FlvChecker fc = new FlvChecker();
-						fc.checkTag(raf, rafNew2, fileNew2);
+						fc.checkTag(raf, rafNew2, fileNew2, splitScripts);
 						// 3. 收尾并处理时长
 						rafNew2.close();
 						changeDuration(fileNew2.getAbsolutePath(), fc.getDuration() / 1000);

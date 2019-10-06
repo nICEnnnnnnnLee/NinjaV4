@@ -1,11 +1,11 @@
 package nicelee.function.live_recorder.util;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -42,7 +42,7 @@ public class HttpRequestUtil {
 	// 下载标志,置False可以停止下载
 	private boolean bDown = true;
 	// Cookie管理
-	CookieManager manager = new CookieManager();
+	CookieManager manager;
 
 	public HttpRequestUtil() {
 		this.manager = defaultManager;
@@ -70,6 +70,11 @@ public class HttpRequestUtil {
 		return defaultManager;
 	}
 
+	public void newCookieManager() {
+		CookieManager manager = new CookieManager();
+		CookieHandler.setDefault(manager);
+		this.manager = manager;
+	}
 	/**
 	 * 停止下载
 	 */
@@ -387,8 +392,8 @@ public class HttpRequestUtil {
 			}
 			conn.connect();
 			// 建立输入流，向指向的URL传入参数
-			DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-			dos.writeBytes(param);
+			OutputStream dos = (conn.getOutputStream());
+			dos.write(param.getBytes("UTF-8"));
 			dos.flush();
 			dos.close();
 
