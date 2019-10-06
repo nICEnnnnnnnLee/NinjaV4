@@ -22,10 +22,12 @@ public class SocketDealer extends PathDealer implements Runnable {
 		this.socketClient = socketClient;
 	}
 
-	final static Pattern urlPattern = Pattern.compile("^GET ([^ \\?]+)\\??([^ \\?]*) HTTP.*$");
+	final static Pattern urlPattern = Pattern.compile("^(?:GET|POST) ([^ \\?]+)\\??([^ \\?]*) HTTP.*$");
+	final static Pattern contentLengthPattern = Pattern.compile("^content-length *: *([0-9]+)$");
 	@Override
 	public void run() {
-		String path = null, param = null;
+		String path = null, param = null, data = null;
+		int dataLen = -1;
 		try {
 			in = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
 			out = new BufferedWriter(new OutputStreamWriter(socketClient.getOutputStream()));
@@ -33,14 +35,31 @@ public class SocketDealer extends PathDealer implements Runnable {
 			// 读取url请求
 			String line = null;
 			while ((line = in.readLine()) != null) {
+				// 处理Path
 				Matcher matcher = urlPattern.matcher(line);
 				if(path == null && matcher.find()) {
 					System.out.println("正在处理请求: " + line);
 					path = matcher.group(1);
 					param = matcher.group(2);
+					continue;
 				}
-				if(line.length() == 0)
+				
+				// 处理Content-Length
+				matcher = contentLengthPattern.matcher(line.toLowerCase());
+				if(dataLen<0 && matcher.find()) {
+					dataLen = Integer.parseInt(matcher.group(1));
+				}
+				
+				// 处理结尾
+				if(line.length() == 0) {
+					if(dataLen > 0) {
+						char[] buffer = new char[dataLen];
+						in.read(buffer);
+						data = new String(buffer);
+						//System.out.println(data);
+					}
 					break;
+				}
 			}
 			
 			// 返回结果
@@ -49,7 +68,7 @@ public class SocketDealer extends PathDealer implements Runnable {
 //			out.write("Content-Length: "+ html.length()+ "\r\n");
 			out.write("\r\n");
 			// 处理请求并返回内容
-			dealRequest(out, path, param);
+			dealRequest(out, path, param, data);
 			out.write("\r\n");
 			out.flush();
 			

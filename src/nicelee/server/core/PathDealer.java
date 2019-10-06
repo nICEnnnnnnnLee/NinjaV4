@@ -20,17 +20,17 @@ public class PathDealer {
 	 * @param param
 	 * @throws IOException
 	 */
-	public void dealRequest(BufferedWriter out, String path, String param) throws IOException {
-		dealRequest(out, path, param, false);
+	public void dealRequest(BufferedWriter out, String path, String param, String data) throws IOException {
+		dealRequest(out, path, param, data, false);
 	}
 
-	public void dealRequest(BufferedWriter out, String path, String param, boolean isCmd) throws IOException {
+	public void dealRequest(BufferedWriter out, String path, String param, String data, boolean isCmd) throws IOException {
 		// 遍历Controller类，得到和Path匹配的处理方法, 目前仅一个Class
 		Method currentMethod = null;
 		currentMethod = findMethod(path, currentMethod);
 		// 找到Method方法后，根据param给Method变量赋值
 		if (currentMethod != null) {
-			dealWithPathKnown(out, param, currentMethod);
+			dealWithPathKnown(out, param, data, currentMethod);
 		} else {
 			dealWithPathUnknown(out,isCmd);
 		}
@@ -64,7 +64,7 @@ public class PathDealer {
 	 * @param klass
 	 * @throws Exception
 	 */
-	private void dealWithPathKnown(BufferedWriter out, String param, Method currentMethod) {
+	private void dealWithPathKnown(BufferedWriter out, String param, String data, Method currentMethod) {
 		Class<?> klass = currentMethod.getDeclaringClass();
 		Annotation[][] paramAnnos = currentMethod.getParameterAnnotations();
 		Class<?>[] paramTypes = currentMethod.getParameterTypes();
@@ -76,7 +76,10 @@ public class PathDealer {
 			} else {
 				if (paramAnnos[i].length > 0) {
 					Value value = (Value) paramAnnos[i][0];
-					values[i] = getValue(param, value.key());
+					if("postData".equals(value.key()))
+						values[i] = data;
+					else
+						values[i] = getValue(param, value.key());
 				} else {
 					values[i] = null;
 				}
