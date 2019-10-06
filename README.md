@@ -1,8 +1,11 @@
 ﻿
 ## :smile:能做什么  
-+ 远程查看家里WiFi的设备连接情况  
-+ 远程控制手机录制B站/斗鱼/虎牙/快手直播  
-    
++ (远程控制手机)查看WiFi的设备连接情况  
++ (远程控制手机)录制B站/斗鱼/虎牙/快手直播  
++ QQ机器人(已有复读机Demo，需要有酷Q使用基础)
+
+## :smile:Opssssss
+算了，也不一定要手机，**Jar**包也可以运行，周期性触发直接**Timer**即可
     
 ## :smile:需要什么  
 + 一台Android手机(可以不必Root)   
@@ -48,7 +51,7 @@ vi app.config
 ```
 以下列出必不可少的关键配置，其它可参考`app.config.sample`
 ```
-# dex包的路径(用于包扫描)
+# dex包的路径(用于包扫描，非dalvikvm可以不必配置)
 dexPath = ninjaV4.dex
 # token 用于访问github
 token = xxxxxxxx
@@ -61,6 +64,15 @@ url_markOfMacs = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master
 url_taskToDo = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master/task/todo.txt
 # 用于命令执行情况上报
 url_taskReport = https://api.github.com/repos/nICEnnnnnnnLee/AbcTest/contents/task/report.txt
+# 163邮件提醒配置
+mail_senderAddress = sender@163.com
+mail_recipientAddress = reciever@163.com
+mail_senderAccount = senderAccount(一般与邮箱同名)
+mail_senderPassword = 密码
+# 用于QQ机器人发送消息
+# http插件： https://github.com/richardchien/coolq-http-api
+## 插件所在的服务器ip + 配置端口(用于信息发送用途)
+coolQ_httpApi_Addr = http://192.168.0.103:5701
 ```
 
 + 运行  
