@@ -30,22 +30,23 @@ public class GlobalConfig {
 
 	// QQ 机器人配置
 	public static String coolQ_httpApi_Addr = "http://127.0.0.1:5701";
+	public static String QQToInform = "xxxxxxxx";
 	
 	// 邮件发送配置
-	public static String mail_senderAddress = "sender@163.com";
-	public static String mail_recipientAddress = "receiver@163.com";
-	public static String mail_senderAccount = "sender@163.com";
+	public static String mail_senderAddress = "sender@sina.com";
+	public static String mail_recipientAddress = "receiver@sina.com";
+	public static String mail_senderAccount = "sender@sina.com";
 	public static String mail_senderPassword = "xxx";
 	
 	
 	// url-在线设备存放位置  上传
-	public static String url_onlineDevices = null;
+	public static String url_onlineDevices = "";
 	// url-Mac地址备注存放位置 下载
-	public static String url_markOfMacs = null;
+	public static String url_markOfMacs = "";
 	// url-云端命令存放位置  下载
-	public static String url_taskToDo = null;
+	public static String url_taskToDo = "";
 	// url-云端命令运行结果存放位置 上传
-	public static String url_taskReport = null;
+	public static String url_taskReport = "";
 	// 用于鉴权
 	public static String token = null;
 	// 用于鉴权

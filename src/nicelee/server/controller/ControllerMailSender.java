@@ -9,8 +9,8 @@ import nicelee.common.annotation.Controller;
 import nicelee.common.annotation.Value;
 import nicelee.function.mail.MailUtil;
 
-@Controller(path = "/mail", note = "发送163邮件，dex包无法使用")
-public class Controller163MailSender {
+@Controller(path = "/mail", note = "发送邮件")
+public class ControllerMailSender {
 	
 	static ExecutorService mailThreadPool = null;
 	@Controller(path = "/send", note = "发送一条消息")
@@ -22,7 +22,7 @@ public class Controller163MailSender {
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
-		synchronized (Controller163MailSender.class) {
+		synchronized (ControllerMailSender.class) {
 			if(mailThreadPool == null)
 				mailThreadPool = Executors.newFixedThreadPool(1);
 		}

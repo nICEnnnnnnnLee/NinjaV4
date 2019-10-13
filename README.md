@@ -1,114 +1,37 @@
 ﻿
+## :smile:前言  
+收录了一些日常用的功能，Android旧手机服务器+Linux小鸡两用。  
+yoooooooooooo~  
+
 ## :smile:能做什么  
-+ (远程控制手机)查看WiFi的设备连接情况  
-+ (远程控制手机)录制B站/斗鱼/虎牙/快手直播  
-+ QQ机器人(已有复读机Demo，需要有酷Q使用基础)
-
-## :smile:Opssssss
-+ 算了，也不一定要手机，**Jar**包也可以运行。
-+ 下文解决Android熄屏引起的问题用到了**Tasker**  
-  但是如果其它系统调**Jar**包的话，使用直接`crontab -e`  
-  或者在代码里补上**Timer**周期调用即可
-    
-## :smile:需要什么(dex)  
-+ 一台Android手机(可不必root)   
-    + 安装Termux
-    + 安装Termux：Tasker
-    + 安装Tasker
-    + 不咋会的可以看看前面的[博文](https://nICEnnnnnnnLee.github.io/blog/2019/09/07/android-linux-3/)  
-+ 一个Github账号  
-    + 创建Repo，用于状态获取与任务发布  
-+ 一个编译好的dex程序 [ninjaV4.dex](https://github.com/nICEnnnnnnnLee/NinjaV4/releases)
-
-## :smile:需要什么(jar)  
-+ 一台装好Java环境的小鸡  
-+ 一个编译好的jar程序 [ninjaV4.jar](https://github.com/nICEnnnnnnnLee/NinjaV4/releases)
-
-## :smile:如何部署  
-<details>
-<summary>Github(仅局域网使用可跳过)</summary>
-
-
-+ 新建一个用于鉴权的token  [配置Token](https://github.com/settings/tokens)  
-+ 新建一个Repo(可以是私有),例如`AbcTest`
-+ 为了方便识别在线设备，添加对MAC地址的备注，如`online-devices/remarks.txt`  
-```
-2b:2b:2b:2b:2b:2b 我的PC
-2b:2b:2b:2b:2b:2c 我的手机
-```
-</details>
-
-
-<details>
-<summary>Termux(非Android只需注意配置)</summary>
-
-
-+ 安装  
-更详细的请访问[博客](https://nICEnnnnnnnLee.github.io/blog/2019/09/17/android-linux-8/)
-```
-wget -O install.sh https://gitee.com/NiceLeee/NinjaV4/raw/master/auto-install/install.sh
-bash install.sh
-```
-
-+ 配置
-```
-cd ~/workspace/ninjaV4/config
-vi app.config
-```
-以下列出必不可少的关键配置，其它可参考`app.config.sample`  
-若仅局域网使用，关于Github的配置乱填即可，但不可不填  
-```
-# dex包的路径(用于包扫描，非dalvikvm可以不必配置)
-dexPath = ninjaV4.dex
-# token 用于访问github
-token = xxxxxxxx
-# 在线设备上传的位置
-#例如访问{nICEnnnnnnnLee}的{AbcTest}仓库的{online-devices/onlines.txt}可以看到我的WiFi设备状态
-url_onlineDevices = https://api.github.com/repos/nICEnnnnnnnLee/AbcTest/contents/online-devices/onlines.txt
-# 对MAC地址的备注，例如访问{nICEnnnnnnnLee}的{AbcTest}仓库的{online-devices/remarks.txt}
-url_markOfMacs = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master/online-devices/remarks.txt
-# 用于云端下发命令
-url_taskToDo = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master/task/todo.txt
-# 用于命令执行情况上报
-url_taskReport = https://api.github.com/repos/nICEnnnnnnnLee/AbcTest/contents/task/report.txt
-# 163邮件提醒配置
-mail_senderAddress = sender@163.com
-mail_recipientAddress = reciever@163.com
-mail_senderAccount = senderAccount(一般与邮箱同名)
-mail_senderPassword = 密码
-# 用于QQ机器人发送消息
-# http插件： https://github.com/richardchien/coolq-http-api
-## 插件所在的服务器ip + 配置端口(用于信息发送用途)
-coolQ_httpApi_Addr = http://192.168.0.103:5701
-```
-
-+ 运行  
-```
-bash ~/run_ninjaV4.sh
-```
-</details>
- 
-<details>
-<summary>Tasker(非Android可跳过)</summary>
-
-
-+ 周期性触发WiFi状态上传
-    + Tasker添加任务
-    + 弹出对话框，选择插件
-    + 弹出对话框，选择termux:task
-    + 弹出对话框，选择脚本wifi_status_upload.sh
-    + 建议每30分钟触发一次
-    
-+ 周期性触发云端命令获取并执行
-    + Tasker添加任务
-    + 弹出对话框，选择插件
-    + 弹出对话框，选择termux:task
-    + 弹出对话框，选择脚本get_command_and_run.sh
-    + 建议每5分钟触发一次
-</details>
-
+| 功能  | 支持情况 |
+| ------------- | ------------- |
+| 查看WiFi邻居  | jar/dex |
+| 录制B站/斗鱼/虎牙/快手直播  | jar/dex |
+| 通过Github中转推拉信息  | jar/dex |
+| QQ信息收发(配合酷Q)  | 基于酷Q |
+| 邮件发送  | jar/dex |
+| 斗鱼养粉丝牌  | jar/dex |
+| 斗鱼鱼塘任务奖品领取  | jar/dex |
+| 斗鱼登录(扫二维码获取cookie)  | jar/dex |
     
 ## :smile:如何使用  
++ UTF-8编码方式运行jar/dex包即可，举例：  
+```
+java -Dfile.encoding=utf-8 -jar ninjaV4.jar  
+dalvikvm -cp ninjaV4.dex nicelee.server.MainServer  
+// 或者nohup ...
+nohup dalvikvm -cp ninjaV4.dex nicelee.server.MainServer >/dev/null 2>&1 &
+```
++ 请务必注意**配置文件**的相应配置  
+[此处](docs/0_configs.md)列有相应配置  
+
++ 关于dex包  
+    + Android的虚拟Linux环境内dalvikvm与常见jvm存在差异(除非你再套一层，使用jvm)  
+    + Android熄屏后定时操作存在问题  
+    + [此处-Android手机当服务器](docs/1_android_dex.md)有所补充
+    
+## :smile:功能举例  
 <details>
 <summary>同一局域网内</summary>
 
@@ -128,7 +51,7 @@ bash ~/run_ninjaV4.sh
 
 
 + 查看家内的WiFi连接状态  
-在Github对应的Repo路径查看即可  
+也就是终端收集Wifi连接信息，然后上传，在Github对应的Repo路径查看即可  
 ![](https://nICEnnnnnnnLee.github.io/sources/archive/2019/09/onliner.png)  
 
 + 让家内的Android设备执行某些特定操作  
@@ -207,6 +130,7 @@ public class ControllerTester {
 + 使用[Crypto-js](https://github.com/brix/crypto-js)仿浏览器生成斗鱼直播录制token[![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/brix/crypto-js/blob/develop/LICENSE) 
 + 使用[Rhino](https://github.com/brix/crypto-js)库在斗鱼直播录制生成token时调用了js[![](https://img.shields.io/badge/license-MPL%202.0-green.svg)](https://github.com/mozilla/rhino/blob/master/LICENSE.txt) 
 + 使用[JavaMail](https://github.com/javaee/javamail)发送邮件[![](https://img.shields.io/badge/license-CDDL-green.svg)](https://javaee.github.io/javamail/LICENSE) 
+* 使用[zxing](https://github.com/zxing/zxing)库生成链接二维码图片[![](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/zxing/zxing/master/LICENSE)  
 
 
 ## :smile:更新日志

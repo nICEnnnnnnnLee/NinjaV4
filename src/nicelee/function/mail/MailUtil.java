@@ -11,6 +11,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import nicelee.function.live_recorder.util.TrustAllCertSSLUtil;
 import nicelee.global.GlobalConfig;
 
 public class MailUtil {
@@ -23,18 +24,15 @@ public class MailUtil {
 	// 发件人账户密码
 	public static String senderPassword = null;
 
-	public static void main(String[] args) throws Exception {
-		send("test", "haha");
-	}
-
 	public static void init() {
-		if(senderAddress == null) {
+		if (senderAddress == null) {
 			senderAddress = GlobalConfig.mail_senderAddress;
 			recipientAddress = GlobalConfig.mail_recipientAddress;
 			senderAccount = GlobalConfig.mail_senderAccount;
 			senderPassword = GlobalConfig.mail_senderPassword;
 		}
 	}
+
 	/**
 	 * 
 	 * @param topic
@@ -48,12 +46,10 @@ public class MailUtil {
 			System.out.println("邮件发送开始");
 			Properties props = new Properties();
 			props.put("mail.smtp.auth", "true");
-			props.put("mail.transport.protocol", "smtp");
-			props.put("mail.smtp.host", "smtp.163.com");
-//			props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-//			props.setProperty("mail.smtp.socketFactory.fallback", "false");
-//			props.setProperty("mail.smtp.port", "465");
-//			props.setProperty("mail.smtp.socketFactory.port", "465");
+			props.put("mail.smtp.host", "smtp.sina.com");
+			props.put("mail.smtp.port", "465");
+			props.put("mail.smtp.ssl.enable", "true");
+			props.put("mail.smtp.ssl.socketFactory", TrustAllCertSSLUtil.getFactory());
 
 			Session session = Session.getInstance(props);
 //			session.setDebug(true);
@@ -64,13 +60,13 @@ public class MailUtil {
 			transport.sendMessage(msg, new InternetAddress[] { new InternetAddress(recipientAddress) });
 			System.out.println("邮件发送成功");
 			return true;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("邮件发送失败");
 			return false;
-		}finally {
-			
-			if(transport != null)
+		} finally {
+
+			if (transport != null)
 				transport.close();
 		}
 	}

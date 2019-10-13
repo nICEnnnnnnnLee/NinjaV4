@@ -1,12 +1,11 @@
 package nicelee.server;
 
-import nicelee.function.cloud.mac_remarks.MacsRemark;
 import nicelee.global.GlobalConfig;
 import nicelee.server.core.SocketServer;
 
 public class MainServer {
 
-	final static String version = "V1.0.2";
+	final static String version = "V1.0.3";
 	public static void main(String[] args) {
 		try {
 			System.out.println(GlobalConfig.baseDirectory());
@@ -16,13 +15,13 @@ public class MainServer {
 		// 初始化配置
 		GlobalConfig.init();
 		
-		// 初始化MAC地址的备注
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				MacsRemark.refreshRemarks(GlobalConfig.url_markOfMacs, GlobalConfig.token);
-			}
-		}).start();
+//		// 初始化MAC地址的备注
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				MacsRemark.refreshRemarks(GlobalConfig.url_markOfMacs, GlobalConfig.token);
+//			}
+//		}).start();
 		
 //		
 //		// 开启schedule，周期性上报邻居状态

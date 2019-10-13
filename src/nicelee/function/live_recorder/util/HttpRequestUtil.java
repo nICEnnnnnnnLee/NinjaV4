@@ -30,7 +30,7 @@ public class HttpRequestUtil {
 
 	private static CookieManager defaultManager = new CookieManager();
 	// 下载缓存区
-	private byte[] buffer = new byte[1024 * 1024];
+	private byte[] buffer;
 	// 下载文件大小状态
 	private long downloadedFileSize;
 	private long totalFileSize;
@@ -135,6 +135,11 @@ public class HttpRequestUtil {
 	static Pattern filePartPattern = Pattern.compile("^(.*)-part[0-9]+\\.(flv|mp4)$");
 
 	public boolean download(String url, String fileName, HashMap<String, String> headers) {
+		synchronized (buffer) {
+			if(buffer == null) {
+				buffer = new byte[1024 * 1024];
+			}
+		}
 		// 如果已经人工停止，那么直接返回
 		if (status == StatusEnum.STOP) {
 			System.out.println("人工停止");
