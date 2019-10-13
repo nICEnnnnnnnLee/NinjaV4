@@ -115,7 +115,7 @@ public class ControllerQQRobot {
 			String senderName = json.optJSONObject("sender").optString("nickname");
 			String msg = json.optString("message");
 			System.out.printf("%s(%d): %s\n", senderName, senderQQ, msg);
-			if(isReply && 463773530L == senderQQ) {
+			if(isReply) {
 				JSONObject obj = new JSONObject();
 				obj.put("reply", msg);
 				obj.put("auto_escape", false);
@@ -130,15 +130,6 @@ public class ControllerQQRobot {
 				senderName = senderRemark;
 			String msg = json.optString("message");
 			System.out.printf("来自群%s - %s(%d): %s\n", groupId, senderName, senderQQ, msg);
-//			if(isReply && 208136445L == senderQQ ) {
-//				setReply(false);
-//				JSONObject obj = new JSONObject();
-////				obj.put("reply", "沙雕机器人应召唤而来~");
-//				obj.put("reply", "。。");
-//				obj.put("auto_escape", false);
-//				obj.put("at_sender", false);
-//				return obj.toString();
-//			}
 		}
 		return null;
 	}

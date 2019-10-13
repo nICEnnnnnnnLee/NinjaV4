@@ -41,6 +41,8 @@ url_markOfMacs = https://raw.githubusercontent.com/nICEnnnnnnnLee/AbcTest/master
 ```
 // 酷Q插件httpapi的地址，用于发消息
 coolQ_httpApi_Addr = http://192.168.0.103:5701
+// 默认通知的QQ信息
+QQToInform = 1234567
 ```
 
 ## :smile:邮件相关
