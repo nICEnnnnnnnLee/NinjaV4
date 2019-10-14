@@ -28,12 +28,11 @@ public class HttpRequestUtil {
 	CookieManager manager;
 
 	public HttpRequestUtil() {
-		this.manager = defaultManager;
-		manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-		CookieHandler.setDefault(manager);
+		this(defaultManager);
 	}
 
 	public HttpRequestUtil(CookieManager manager) {
+		HttpURLConnection.setFollowRedirects(true);
 		this.manager = manager;
 		manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 		CookieHandler.setDefault(manager);
