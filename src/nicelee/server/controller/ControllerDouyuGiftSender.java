@@ -61,12 +61,32 @@ public class ControllerDouyuGiftSender {
 	public String getGifts(BufferedWriter out) {
 		DouyuDailyTask daily = new DouyuDailyTask();
 		try {
-			out.write("以下为具体情况：");
-			out.write(daily.gainActiveTask(DouyuLogin.getCookie()));
-			out.write(daily.gainSharkTask(DouyuLogin.getCookie()));;
+			out.write("以下为具体情况：<br/>\n");
+			// 有些任务，必须做完领取完前置任务奖励，才能显示
+			int maxCnt = 3;
+			String result = daily.gainActiveTask(DouyuLogin.getCookie());
+			while(maxCnt > 0 && !result.isEmpty()) {
+				out.write(result);
+				result = daily.gainActiveTask(DouyuLogin.getCookie());
+				maxCnt--;
+			}
+			
+			maxCnt = 3;
+			result = daily.gainSharkTask(DouyuLogin.getCookie());
+			while(maxCnt > 0 && !result.isEmpty()) {
+				out.write(result);
+				result = daily.gainSharkTask(DouyuLogin.getCookie());
+				maxCnt--;
+			}
 		} catch (IOException e) {
 		}
 		return null;
+	}
+	
+	@Controller(path = "/douyu/signAtBars", note = "鱼吧签到")
+	public String signAtBars(BufferedWriter out) {
+		DouyuDailyTask daily = new DouyuDailyTask();
+		return daily.signAtBarsFollowed(DouyuLogin.getCookie(), 20, 1);
 	}
 
 }

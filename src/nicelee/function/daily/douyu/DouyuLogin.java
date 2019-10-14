@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import nicelee.common.util.HttpRequestUtil;
 import nicelee.common.util.QrCodeUtil;
+import nicelee.common.util.RandomUtil;
 
 public class DouyuLogin extends Thread {
 
@@ -84,7 +85,7 @@ public class DouyuLogin extends Thread {
 
 			loginStatus = 2;
 			int count = 0, status = -1;
-			while (count < 30) {
+			while (count < 60) {
 				status = queryStatus(code);
 				if (status == 1) {
 					System.out.println("客户端已扫码");
@@ -100,7 +101,7 @@ public class DouyuLogin extends Thread {
 					loginStatus = 7;
 					break;
 				}
-				Thread.sleep(1500);
+				Thread.sleep(2000);
 			}
 
 			if (loginStatus == 4) {
@@ -115,6 +116,7 @@ public class DouyuLogin extends Thread {
 					if (cookie.endsWith("; ")) {
 						cookie = cookie.substring(0, cookie.length() - 2);
 					}
+					goAuthFishBar();
 					System.out.println(cookie);
 					loginCookie = cookie;
 					saveCookie();
@@ -182,7 +184,7 @@ public class DouyuLogin extends Thread {
 		return result.contains("\"msg\":\"ok\"");
 	}
 
-	private void saveCookie() {
+	private static void saveCookie() {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("config/douyu-cookie.txt", false));
 			out.write(loginCookie);
@@ -191,5 +193,48 @@ public class DouyuLogin extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 根据已有Cookie，登录鱼吧
+	 * @return
+	 */
+	public String authFishBar() {
+		if(loginCookie.contains("acf_yb_auth"))
+			return loginCookie;
+		goAuthFishBar();
+		
+		StringBuilder sb = new StringBuilder();
+		for (HttpCookie cookie : util.CurrentCookieManager().getCookieStore().getCookies()) {
+			sb.append(cookie.getName()).append("=").append(cookie.getValue()).append("; ");
+		}
+		if(sb.indexOf(loginCookie) == -1) {
+			sb.append(loginCookie);
+		}
+		String cookie = sb.toString();
+		if (cookie.endsWith("; ")) {
+			cookie = cookie.substring(0, cookie.length() - 2);
+		}
+		System.out.println(cookie);
+		loginCookie = cookie;
+		saveCookie();
+		return loginCookie;
+	}
+	
+	private void goAuthFishBar() {
+		long currtime = System.currentTimeMillis();
+		String callback = RandomUtil.getRandom("1234567890", 16);
+		String url = String.format("https://passport.douyu.com/lapi/passport/iframe/safeAuth?callback=jQuery%s_%d&client_id=5&did=&t=1571020930757&_=1571020930392", 
+				callback, currtime, currtime +59, currtime +1);
+		
+		HashMap<String, String> headers = new HashMap<>();
+		headers.put("Accept", "*/*");
+		headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0");
+		headers.put("Referer", "https://yuba.douyu.com/group/16775");
+		headers.put("Cookie", loginCookie);
+		
+//		util.getContent(url, headers);
+		String content = util.getContent(url, headers);
+		System.out.println(content);
 	}
 }
