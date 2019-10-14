@@ -18,10 +18,10 @@ import nicelee.function.ipscan.IpScanner;
 import nicelee.global.Global;
 import nicelee.global.GlobalConfig;
 
-@Controller(note = "在线设备状态相关")
+@Controller(path = "/onliner", note = "在线设备状态相关")
 public class ControllerOnlinerFinder {
 
-	@Controller(path = "/onliner/status/upload",
+	@Controller(path = "/status/upload",
 			note="[动]刷新在线设备状态并上传")
 	public String uploadStatus() {
 		IpScanner sanner = new IpScanner() {
@@ -69,7 +69,7 @@ public class ControllerOnlinerFinder {
 		return "online状态尝试上传";
 	}
 	
-	@Controller(path = "/onliner/status/refresh", note="[动]刷新在线设备状态")
+	@Controller(path = "/status/refresh", note="[动]刷新在线设备状态")
 	public String refreshStatus() {
 		IpScanner sanner = new IpScanner() {
 			@Override
@@ -82,14 +82,14 @@ public class ControllerOnlinerFinder {
 		return "尝试刷新在线设备状态";
 	}
 
-	@Controller(path = "/onliner/remarks/refresh",note="[动]刷新Mac备注")
+	@Controller(path = "/remarks/refresh",note="[动]刷新Mac备注")
 	public String refreshMacRemarks() {
 		// 初始化MAC地址的备注
 		MacsRemark.refreshRemarks(GlobalConfig.url_markOfMacs, GlobalConfig.token);
 		return "尝试获取最新Mac地址";
 	}
 	
-	@Controller(path = "/onliner/remarks",note="Mac备注")
+	@Controller(path = "/remarks",note="Mac备注")
 	public String reportMacRemarks(BufferedWriter out) {
 		try {
 			for (Map.Entry<String, String>  entry : Global.macRemark.entrySet()) {
@@ -107,7 +107,7 @@ public class ControllerOnlinerFinder {
 		return "";
 	}
 
-	@Controller(path = "/onliner/status",note="在线设备状态")
+	@Controller(path = "/status",note="在线设备状态")
 	public String reportStatus(BufferedWriter out) {
 		try {
 			out.write("当前在线数： " + Global.macIP.size());

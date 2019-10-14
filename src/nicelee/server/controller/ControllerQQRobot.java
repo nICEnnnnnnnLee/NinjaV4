@@ -21,7 +21,7 @@ import nicelee.global.GlobalConfig;
  * post_url = http://127.0.0.1:8888/qqrobot
  *
  */
-@Controller(path = "/qqrobot", note = "QQ机器人")
+@Controller(path = "/qq", note = "QQ机器人")
 public class ControllerQQRobot {
 	final static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	final static TimeZone tzChina = TimeZone.getTimeZone("GMT+8:00");
@@ -32,19 +32,19 @@ public class ControllerQQRobot {
 		ControllerQQRobot.isReply = isReply;
 	}
 	
-	@Controller(path = "/reply/no", note = "关闭回复")
+	@Controller(path = "robot/reply/no", note = "关闭回复")
 	public String closeReply() {
 		setReply(false);
 		return "关闭回复";
 	}
 	
-	@Controller(path = "/reply/yes", note = "打开回复")
+	@Controller(path = "robot/reply/yes", note = "打开回复")
 	public String openReply() {
 		setReply(true);
 		return "打开回复";
 	}
 	
-	@Controller(path = "/sendMsg", note = "发送一条消息")
+	@Controller(path = "robot/sendMsg", note = "发送一条消息")
 	public String sendMsg(@Value(key = "msg")String msg,@Value(key = "id")String id) {
 		try {
 			if(id == null)
@@ -71,7 +71,7 @@ public class ControllerQQRobot {
 		return result;
 	}
 	
-	@Controller(path = "/sendGroupMsg", note = "发送一条群消息")
+	@Controller(path = "robot/sendGroupMsg", note = "发送一条群消息")
 	public String sendGroupMsg(@Value(key = "msg")String msg,@Value(key = "id")String id) {
 		try {
 			if(id == null)
@@ -97,7 +97,7 @@ public class ControllerQQRobot {
 	}
 	
 	
-	@Controller(path = "", note = "ai的本质是回复机")
+	@Controller(path = "robot", note = "ai的本质是回复机")
 	public String autoReply(@Value(key = "postData")String postData) {
 		if(postData == null)
 			return "请使用正确的POST方式！！";

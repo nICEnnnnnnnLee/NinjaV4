@@ -15,16 +15,19 @@ public class PathDealer {
 
 	/**
 	 * 处理请求
+	 * 
 	 * @param out
-	 * @param path
-	 * @param param
+	 * @param path  请求路径
+	 * @param param 请求参数?号后面那一坨
+	 * @param data  POST的内容，GET为null
 	 * @throws IOException
 	 */
 	public void dealRequest(BufferedWriter out, String path, String param, String data) throws IOException {
 		dealRequest(out, path, param, data, false);
 	}
 
-	public void dealRequest(BufferedWriter out, String path, String param, String data, boolean isCmd) throws IOException {
+	public void dealRequest(BufferedWriter out, String path, String param, String data, boolean isCmd)
+			throws IOException {
 		// 遍历Controller类，得到和Path匹配的处理方法, 目前仅一个Class
 		Method currentMethod = null;
 		currentMethod = findMethod(path, currentMethod);
@@ -32,7 +35,7 @@ public class PathDealer {
 		if (currentMethod != null) {
 			dealWithPathKnown(out, param, data, currentMethod);
 		} else {
-			dealWithPathUnknown(out,isCmd);
+			dealWithPathUnknown(out, path, isCmd);
 		}
 	}
 
@@ -76,7 +79,7 @@ public class PathDealer {
 			} else {
 				if (paramAnnos[i].length > 0) {
 					Value value = (Value) paramAnnos[i][0];
-					if("postData".equals(value.key()))
+					if ("postData".equals(value.key()))
 						values[i] = data;
 					else
 						values[i] = getValue(param, value.key());
@@ -108,7 +111,7 @@ public class PathDealer {
 	 * @param isCmd 是否直接返回command not found；还是返回引导页面
 	 * @throws IOException
 	 */
-	private void dealWithPathUnknown(BufferedWriter out, boolean isCmd) throws IOException {
+	private void dealWithPathUnknown(BufferedWriter out, String path, boolean isCmd) throws IOException {
 		if (isCmd) {
 			out.write("command not found");
 			return;
@@ -117,22 +120,28 @@ public class PathDealer {
 		for (Class<?> klass : PackageScanLoader.controllerClazzes) {
 			Controller preAnno = klass.getAnnotation(Controller.class);
 			String pathPrefix = preAnno.path();
+			out.write("<li><a href=\"");
+			out.write(preAnno.path());
+			out.write("\">");
 			out.write(preAnno.note());
+			out.write("</a><br/>\r\n<ul>");
 			for (Method method : klass.getMethods()) {
 				Controller controller = method.getAnnotation(Controller.class);
 				if (controller != null) {
-					out.write("<li><a href=\"");
-					out.write(pathPrefix + controller.path());
-					out.write("\">");
-					out.write(controller.note());
-					out.write("</a><br/>\r\n<a href=\"");
-					out.write(pathPrefix + controller.path());
-					out.write("\">");
-					out.write(pathPrefix + controller.path());
-					out.write("</a><br/>\r\n<br/>\r\n</li>");
+					String methodPath = pathPrefix + controller.path();
+					if (path == null || methodPath.startsWith(path)) {
+						out.write("<li>");
+						out.write(controller.note());
+						out.write("<br/>\r\n<a href=\"");
+						out.write(methodPath);
+						out.write("\">");
+						out.write(methodPath);
+						out.write("</a><br/>\r\n<br/>\r\n</li>");
+					}
+
 				}
 			}
-			out.write("<hr/>");
+			out.write("</ul></li><hr/>");
 		}
 		out.write("</ul></body></html>");
 	}

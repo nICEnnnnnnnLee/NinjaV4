@@ -14,7 +14,7 @@ public class ControllerDouyuLogin {
 
 	static String plan = "";
 
-	@Controller(path = "", note = "发起登录线程")
+	@Controller(path = "/", note = "发起登录线程")
 	public String login(BufferedWriter out) {
 		DouyuLogin thread = new DouyuLogin();
 		thread.setDaemon(true);
@@ -68,5 +68,11 @@ public class ControllerDouyuLogin {
 		}
 		return null;
 	}
-
+	
+	
+	@Controller(path = "/genBarCookies", note = "根据已有cookie，获取鱼吧cookie")
+	public String genBarCookies(BufferedWriter out) {
+		DouyuLogin login = new DouyuLogin();
+		return login.authFishBar();
+	}
 }

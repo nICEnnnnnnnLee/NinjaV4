@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface Controller {
 	
-	String path() default "";
+	String path(); // 不鼓励使用""，这会导致PathDealer自动列出url时出现意外的状况
 	
 	String note();// default "";
 	

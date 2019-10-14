@@ -105,9 +105,12 @@ public class DouyuLogin extends Thread {
 			}
 
 			if (loginStatus == 4) {
-				// 成功，保存cookie
+				// 扫码成功
 				if (getLoginCookie()) {
 					loginStatus = 7;
+					// 去获取.yuba.douyu.com的cookie
+					goAuthFishBar();
+					// 保存cookie
 					StringBuilder sb = new StringBuilder();
 					for (HttpCookie cookie : util.CurrentCookieManager().getCookieStore().getCookies()) {
 						sb.append(cookie.getName()).append("=").append(cookie.getValue()).append("; ");
@@ -116,7 +119,6 @@ public class DouyuLogin extends Thread {
 					if (cookie.endsWith("; ")) {
 						cookie = cookie.substring(0, cookie.length() - 2);
 					}
-					goAuthFishBar();
 					System.out.println(cookie);
 					loginCookie = cookie;
 					saveCookie();
