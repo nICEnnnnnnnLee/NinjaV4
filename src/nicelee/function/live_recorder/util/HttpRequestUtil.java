@@ -75,6 +75,7 @@ public class HttpRequestUtil {
 		CookieHandler.setDefault(manager);
 		this.manager = manager;
 	}
+
 	/**
 	 * 停止下载
 	 */
@@ -135,11 +136,6 @@ public class HttpRequestUtil {
 	static Pattern filePartPattern = Pattern.compile("^(.*)-part[0-9]+\\.(flv|mp4)$");
 
 	public boolean download(String url, String fileName, HashMap<String, String> headers) {
-		synchronized (buffer) {
-			if(buffer == null) {
-				buffer = new byte[1024 * 1024];
-			}
-		}
 		// 如果已经人工停止，那么直接返回
 		if (status == StatusEnum.STOP) {
 			System.out.println("人工停止");
@@ -153,7 +149,7 @@ public class HttpRequestUtil {
 			fileDownload = getFile(fileName);
 			File fileDst = new File(fileDownload.getParent(),
 					fileDownload.getName().replaceAll("_(video|audio)", "").replaceAll("\\.m4s$", ".mp4"));
-			//System.out.println(fileDst.getName());
+			// System.out.println(fileDst.getName());
 			// 如果av1234-64-p4.flv已下完， 那么av1234-64-p4-part1.flv这种也不是必须的
 			Matcher ma = filePartPattern.matcher(fileDst.getName());
 			if (ma.find()) {
@@ -192,7 +188,7 @@ public class HttpRequestUtil {
 			conn.setReadTimeout(120000);
 			for (Map.Entry<String, String> entry : headers.entrySet()) {
 				conn.setRequestProperty(entry.getKey(), entry.getValue());
-				//System.out.println(entry.getKey() + ":" + entry.getValue());
+				// System.out.println(entry.getKey() + ":" + entry.getValue());
 			}
 			conn.connect();
 			// 获取所有响应头字段
@@ -212,7 +208,7 @@ public class HttpRequestUtil {
 				inn = conn.getInputStream();
 			} catch (Exception e) {
 				e.printStackTrace();
-				//Logger.println(headers.get("range"));
+				// Logger.println(headers.get("range"));
 				BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 				String temp;
 				while ((temp = reader.readLine()) != null) {
@@ -222,6 +218,9 @@ public class HttpRequestUtil {
 				throw e;
 			}
 
+			if (buffer == null) {
+				buffer = new byte[1024 * 1024];
+			}
 			int lenRead = inn.read(buffer);
 			downloadedFileSize = offset + lenRead;
 			while (lenRead > -1) {
@@ -249,7 +248,7 @@ public class HttpRequestUtil {
 		}
 		// 使用finally块来关闭输入流
 		finally {
-			//System.out.println("下载Finally...");
+			// System.out.println("下载Finally...");
 			try {
 				if (inn != null) {
 					inn.close();
@@ -338,7 +337,7 @@ public class HttpRequestUtil {
 				e2.printStackTrace();
 			}
 		}
-		//printCookie(manager.getCookieStore());
+		// printCookie(manager.getCookieStore());
 		return result.toString();
 	}
 
@@ -411,10 +410,10 @@ public class HttpRequestUtil {
 			in = new BufferedReader(new InputStreamReader(ism, "UTF-8"));
 			String line;
 			while ((line = in.readLine()) != null) {
-				//line = new String(line.getBytes(), "UTF-8");
+				// line = new String(line.getBytes(), "UTF-8");
 				result.append(line);
 			}
-			//printCookie(manager.getCookieStore());
+			// printCookie(manager.getCookieStore());
 		} catch (Exception e) {
 			System.out.println("发送GET请求出现异常！" + e);
 			// e.printStackTrace();
