@@ -49,7 +49,7 @@ public class GlobalConfig {
 	public static String url_taskReport = "";
 	// 用于鉴权
 	public static String token = null;
-	// 用于鉴权
+	// 录制完毕校正时间戳后是否删除源文件
 	public static boolean deleteOnchecked  = false;
 
 	// 扫描前缀

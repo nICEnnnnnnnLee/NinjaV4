@@ -5,7 +5,7 @@ import nicelee.server.core.SocketServer;
 
 public class MainServer {
 
-	final static String version = "V1.0.3";
+	final static String version = "V1.0.4";
 	public static void main(String[] args) {
 		try {
 			System.out.println(GlobalConfig.baseDirectory());
