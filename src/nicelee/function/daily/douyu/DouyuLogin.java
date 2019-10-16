@@ -7,8 +7,11 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.CookieStore;
 import java.net.HttpCookie;
+import java.net.URI;
 import java.util.HashMap;
+
 
 import org.json.JSONObject;
 
@@ -27,6 +30,7 @@ public class DouyuLogin extends Thread {
 	static {
 		readCookieFromFile();
 	}
+
 	public DouyuLogin() {
 		util = new HttpRequestUtil();
 		qrCodeFile = new File("config/qrcode.jpg");
@@ -50,7 +54,7 @@ public class DouyuLogin extends Thread {
 		System.out.println(loginCookie);
 		return loginCookie;
 	}
-	
+
 	public static String getCookie() {
 		return loginCookie;
 	}
@@ -71,6 +75,14 @@ public class DouyuLogin extends Thread {
 	public void run() {
 		System.out.println("login - start");
 		try {
+			// 随机生成dy_did, 用于直播录制
+			CookieStore cookieStore = util.CurrentCookieManager().getCookieStore();
+			String dy_did = RandomUtil.getRandom("1234567890abcdefghijklmnopqrstuvwxyz", 32);
+			HttpCookie idCookie = new HttpCookie("dy_did", dy_did);
+			cookieStore.add(new URI(".douyu.com"), idCookie);
+			idCookie = new HttpCookie("acf_did", dy_did);
+			cookieStore.add(new URI(".douyu.com"), idCookie);
+			
 			loginStatus = 0;
 			String code = generateCode();
 			String url = "https://passport.douyu.com/scan/checkLogin?scan_code=" + code;
@@ -182,7 +194,7 @@ public class DouyuLogin extends Thread {
 
 		String url = String.format("%s&callback=appClient_json_callback&_=%d", loginUrl, System.currentTimeMillis());
 		String result = util.getContent(url, headers);
-		//System.out.println(result);
+		// System.out.println(result);
 		return result.contains("\"msg\":\"ok\"");
 	}
 
@@ -196,21 +208,22 @@ public class DouyuLogin extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 根据已有Cookie，登录鱼吧
+	 * 
 	 * @return
 	 */
 	public String authFishBar() {
-		if(loginCookie.contains("acf_yb_auth"))
+		if (loginCookie.contains("acf_yb_auth"))
 			return loginCookie;
 		goAuthFishBar();
-		
+
 		StringBuilder sb = new StringBuilder();
 		for (HttpCookie cookie : util.CurrentCookieManager().getCookieStore().getCookies()) {
 			sb.append(cookie.getName()).append("=").append(cookie.getValue()).append("; ");
 		}
-		if(sb.indexOf(loginCookie) == -1) {
+		if (sb.indexOf(loginCookie) == -1) {
 			sb.append(loginCookie);
 		}
 		String cookie = sb.toString();
@@ -222,19 +235,20 @@ public class DouyuLogin extends Thread {
 		saveCookie();
 		return loginCookie;
 	}
-	
+
 	private void goAuthFishBar() {
 		long currtime = System.currentTimeMillis();
 		String callback = RandomUtil.getRandom("1234567890", 16);
-		String url = String.format("https://passport.douyu.com/lapi/passport/iframe/safeAuth?callback=jQuery%s_%d&client_id=5&did=&t=1571020930757&_=1571020930392", 
-				callback, currtime, currtime +59, currtime +1);
-		
+		String url = String.format(
+				"https://passport.douyu.com/lapi/passport/iframe/safeAuth?callback=jQuery%s_%d&client_id=5&did=&t=1571020930757&_=1571020930392",
+				callback, currtime, currtime + 59, currtime + 1);
+
 		HashMap<String, String> headers = new HashMap<>();
 		headers.put("Accept", "*/*");
 		headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0");
 		headers.put("Referer", "https://yuba.douyu.com/group/16775");
 		headers.put("Cookie", loginCookie);
-		
+
 //		util.getContent(url, headers);
 		String content = util.getContent(url, headers);
 		System.out.println(content);
