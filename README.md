@@ -13,7 +13,9 @@ yoooooooooooo~
 | 邮件发送  | jar/dex |
 | 斗鱼养粉丝牌  | jar/dex |
 | 斗鱼鱼塘任务奖品领取  | jar/dex |
+| 斗鱼鱼吧每日签到  | jar/dex |
 | 斗鱼登录(扫二维码获取cookie)  | jar/dex |
+| 微信计步作弊  | jar/dex |
     
 ## :smile:如何使用  
 + UTF-8编码方式运行jar/dex包即可，举例：  
@@ -26,6 +28,7 @@ nohup dalvikvm -cp ninjaV4.dex nicelee.server.MainServer >/dev/null 2>&1 &
 + 请务必注意**配置文件**的相应配置  
 [此处](docs/0_configs.md)列有相应配置  
 
++ [微信计步作弊功能使用说明书](http://nicennnnnnnlee.github.io/blog/2020/01/18/weixin-step-counter-cheater-3/?from=NinjaV4.github)
 + 关于dex包  
     + Android的虚拟Linux环境内dalvikvm与常见jvm存在差异(除非你再套一层，使用jvm)  
     + Android熄屏后定时操作存在问题  
@@ -80,7 +83,7 @@ nohup dalvikvm -cp ninjaV4.dex nicelee.server.MainServer >/dev/null 2>&1 &
 ## :smile:如何扩展DIY  
 + 在`nicelee.server.controller`下建立方法解决类，并加上注解`@Controller`  
 + 在处理访问请求时，将会自动调用与URL一致的方法，并自动传入URL里面的参数  
-+ 更详细请见 [处理都在Controller的弱鸡服务器](https://nICEnnnnnnnLee.github.io/blog/2019/09/09/android-linux-6/)  
++ 更详细请见 [处理都在Controller的弱鸡服务器](https://nICEnnnnnnnLee.github.io/blog/2019/09/09/android-linux-6/?from=NinjaV4.github)  
 
 <details>
 <summary>举例</summary>
@@ -124,13 +127,14 @@ public class ControllerTester {
 + [简单的文件服务器](https://github.com/nICEnnnnnnnLee/FileHttpServer)  
 + [通过HTTP请求上传/更新Github文件](https://github.com/nICEnnnnnnnLee/FileUploader4Github)  
 + [Dex包解析扫描](https://gitee.com/mazaiting/app_protection/tree/master/ParseDEX)  
++ [微信计步作弊原理](https://nICEnnnnnnnLee.github.io/blog/2019/12/07/weixin-step-counter-cheater-2/?from=NinjaV4.github)
 
 ## :smile:第三方使用声明   
 + 使用[JSON.org](https://github.com/stleary/JSON-java)库做简单的Json解析[![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/stleary/JSON-java/blob/master/LICENSE) 
 + 使用[Crypto-js](https://github.com/brix/crypto-js)仿浏览器生成斗鱼直播录制token[![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/brix/crypto-js/blob/develop/LICENSE) 
 + 使用[Rhino](https://github.com/brix/crypto-js)库在斗鱼直播录制生成token时调用了js[![](https://img.shields.io/badge/license-MPL%202.0-green.svg)](https://github.com/mozilla/rhino/blob/master/LICENSE.txt) 
 + 使用[JavaMail](https://github.com/javaee/javamail)发送邮件[![](https://img.shields.io/badge/license-CDDL-green.svg)](https://javaee.github.io/javamail/LICENSE) 
-* 使用[zxing](https://github.com/zxing/zxing)库生成链接二维码图片[![](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/zxing/zxing/master/LICENSE)  
+* 使用[qrcodejs](https://github.com/davidshimjs/qrcodejs)库生成链接二维码图片[![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/davidshimjs/qrcodejs/blob/master/LICENSE)  
 
 
 ## :smile:更新日志

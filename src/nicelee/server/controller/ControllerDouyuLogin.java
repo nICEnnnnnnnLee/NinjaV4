@@ -1,11 +1,8 @@
 package nicelee.server.controller;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 
-import nicelee.common.Base64;
 import nicelee.common.annotation.Controller;
 import nicelee.function.daily.douyu.DouyuLogin;
 
@@ -28,7 +25,7 @@ public class ControllerDouyuLogin {
 		}
 		return null;
 	}
-	
+
 //	@Controller(path = "/scan", note = "扫码跳转页面")
 //	public String scan(BufferedWriter out) {
 //		try {
@@ -41,38 +38,39 @@ public class ControllerDouyuLogin {
 //		return null;
 //	}
 
-	@Controller(path = "/qrcode", note = "扫码图片")
-	public String qrCode(BufferedWriter out) {
+	@Controller(path = "/genBarCookies", note = "根据已有cookie，获取鱼吧cookie")
+	public String genBarCookies(BufferedWriter out) {
+		DouyuLogin login = new DouyuLogin();
+		return login.authFishBar();
+	}
+
+	@Controller(path = "/qrcode.min.js", note = "获取qrcode.min.js")
+	public String qrcodeJs(BufferedWriter out) {
 		try {
-			out.write("<html><head><title>扫码图片</title></head><body><div style='margin:0 auto;width: 80%;max-width: 500px; border:1px solid #F00'>");
-			out.write("<img style=\"width:100%\" src=\"data:image/jpeg;base64,");//iVBORw0KGgo=...\" />");
-			
-			byte[] buffer = new byte[1024 * 3]; // 3的倍数
-			RandomAccessFile raf = new RandomAccessFile(new File("config/qrcode.jpg"), "r");
-			long size = raf.read(buffer);
-			while (size > -1) {
-				if (size == buffer.length) {
-					out.write(Base64.getEncoder().encodeToString(buffer));
-				} else {
-					byte tmp[] = new byte[(int) size];
-					System.arraycopy(buffer, 0, tmp, 0, (int) size);
-					out.write(Base64.getEncoder().encodeToString(tmp));
-				}
-				size = raf.read(buffer);
-			}
-			raf.close();
-			out.write("\" />");
-			out.write("</div></h1></body></html>");
+			out.write(DouyuLogin.qrcodeJs);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	
-	@Controller(path = "/genBarCookies", note = "根据已有cookie，获取鱼吧cookie")
-	public String genBarCookies(BufferedWriter out) {
-		DouyuLogin login = new DouyuLogin();
-		return login.authFishBar();
+	@Controller(path = "/qrcode", note = "扫码图片")
+	public String test(BufferedWriter out) {
+		try {
+			if(DouyuLogin.getCurrentScanUrl() == null) {
+				out.write("扫码url尚未生成！！！");
+			}else {
+				out.write(
+						"<html><head><title>扫码图片</title></head><body><script type=\"text/javascript\" src=\"/douyu/login/qrcode.min.js\"></script>");
+				out.write("<div id=\"qrcode\" style='margin:0 auto;width: 256; border:1px solid #F00'></div><script type=\"text/javascript\">\r\n");
+				out.write("var qrcode = new QRCode(document.getElementById(\"qrcode\"), {\r\n	text: \"");
+				out.write(DouyuLogin.getCurrentScanUrl());
+				out.write("\",\r\n	width: 256,height: 256});");
+				out.write("</script></body></html>");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

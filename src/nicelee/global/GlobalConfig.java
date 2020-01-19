@@ -51,6 +51,14 @@ public class GlobalConfig {
 	public static String token = null;
 	// 录制完毕校正时间戳后是否删除源文件
 	public static boolean deleteOnchecked  = false;
+	// 录制完毕是否自动校正时间戳后
+	public static boolean autoCheck  = false;
+
+
+	// 春雨计步postStepUrl
+	public static String weixin_step_postStepUrl  = null;
+	// 春雨计步refreshCookieUrl
+	public static String weixin_step_refreshCookieUrl  = null;
 
 	// 扫描前缀
 	public static String[] ipPrefixs = { "192.168.0.", "192.168.1." };

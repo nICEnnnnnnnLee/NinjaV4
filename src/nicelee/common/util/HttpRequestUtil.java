@@ -20,6 +20,8 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
+import javax.net.ssl.HttpsURLConnection;
+
 
 public class HttpRequestUtil {
 
@@ -29,6 +31,14 @@ public class HttpRequestUtil {
 
 	public HttpRequestUtil() {
 		this(defaultManager);
+//		try {
+//			System.out.println("\n----------测试----------\n");
+//			System.setProperty("proxyHost", "127.0.0.1");
+//			System.setProperty("proxyPort", "8888");
+//			HttpsURLConnection.setDefaultSSLSocketFactory(nicelee.function.live_recorder.util.TrustAllCertSSLUtil.getFactory());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public HttpRequestUtil(CookieManager manager) {

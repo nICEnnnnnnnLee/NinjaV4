@@ -26,6 +26,11 @@ public class ControllerDouyuGiftSender {
 			return "cookie 失效";
 		} else {
 			List<Gift> giftAll = dg.info(cookie);
+			if(giftAll == null) {
+				// 发送QQ消息通知
+				new ControllerQQRobot().sendMsg("斗鱼cookie似乎失效啦~~~", GlobalConfig.QQToInform);
+				return "cookie 失效";
+			}
 			int currentGiftType = 0;
 			for (String roomInfo : idols) {
 				String[] ids = roomInfo.split("#");
@@ -87,6 +92,12 @@ public class ControllerDouyuGiftSender {
 	public String signAtBars(BufferedWriter out) {
 		DouyuDailyTask daily = new DouyuDailyTask();
 		return daily.signAtBarsFollowed(DouyuLogin.getCookie(), 20, 1);
+	}
+	
+	@Controller(path = "/douyu/signAtRooms", note = "在关注列表里前6个当前正在直播的直播间签到")
+	public String signAtRoom(BufferedWriter out) {
+		DouyuDailyTask daily = new DouyuDailyTask();
+		return daily.signAtRoomActiveAndFollowed(DouyuLogin.getCookie(), 6);
 	}
 
 }

@@ -3,21 +3,24 @@ package nicelee.function.daily.douyu;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.CookieStore;
 import java.net.HttpCookie;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
 import org.json.JSONObject;
 
 import nicelee.common.util.HttpRequestUtil;
-import nicelee.common.util.QrCodeUtil;
+import nicelee.common.util.Logger;
 import nicelee.common.util.RandomUtil;
+import nicelee.global.GlobalConfig;
 
 public class DouyuLogin extends Thread {
 
@@ -25,15 +28,39 @@ public class DouyuLogin extends Thread {
 	HttpRequestUtil util;
 	int loginStatus;
 	String loginUrl;
-	File qrCodeFile;
+	static String loginScanUrl;
 
+	public static String qrcodeJs = null;
+	private static String initQrcodeJs() {
+		if(qrcodeJs == null) {
+			StringBuilder sb = new StringBuilder();
+			try {
+				File qrcode = new File(GlobalConfig.configDir, "qrcode.min.js");
+				BufferedReader buReader = null;
+				if(qrcode.exists()) {
+					buReader = new BufferedReader(new FileReader(qrcode));
+				}else {
+					buReader = new BufferedReader(new InputStreamReader(DouyuLogin.class.getResource("/resources/qrcode.min.js").openStream()));
+				}
+				String line = null;
+				while( (line = buReader.readLine()) != null) {
+					sb.append(line);
+				}
+				buReader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			qrcodeJs = sb.toString();
+		}
+		return qrcodeJs;
+	}
 	static {
 		readCookieFromFile();
+		initQrcodeJs();
 	}
 
 	public DouyuLogin() {
 		util = new HttpRequestUtil();
-		qrCodeFile = new File("config/qrcode.jpg");
 	}
 
 	/**
@@ -58,6 +85,9 @@ public class DouyuLogin extends Thread {
 	public static String getCookie() {
 		return loginCookie;
 	}
+	public static String getCurrentScanUrl() {
+		return loginScanUrl;
+	}
 
 	public static void main(String[] a) {
 		try {
@@ -74,6 +104,7 @@ public class DouyuLogin extends Thread {
 	@Override
 	public void run() {
 		System.out.println("login - start");
+		loginScanUrl = null;
 		try {
 			// 随机生成dy_did, 用于直播录制
 			CookieStore cookieStore = util.CurrentCookieManager().getCookieStore();
@@ -88,12 +119,8 @@ public class DouyuLogin extends Thread {
 			String url = "https://passport.douyu.com/scan/checkLogin?scan_code=" + code;
 
 			loginStatus = 1;
-			if (qrCodeFile.exists()) {
-				qrCodeFile.delete();
-			} else {
-				qrCodeFile.getParentFile().mkdirs();
-			}
-			QrCodeUtil.createQrCode(new FileOutputStream(qrCodeFile), url, 900, "JPEG");
+			loginScanUrl = url;
+			//QrCodeUtil.createQrCode(new FileOutputStream(qrCodeFile), url, 900, "JPEG");
 
 			loginStatus = 2;
 			int count = 0, status = -1;
@@ -120,8 +147,6 @@ public class DouyuLogin extends Thread {
 				// 扫码成功
 				if (getLoginCookie()) {
 					loginStatus = 7;
-					// 去获取.yuba.douyu.com的cookie
-					goAuthFishBar();
 					// 保存cookie
 					StringBuilder sb = new StringBuilder();
 					for (HttpCookie cookie : util.CurrentCookieManager().getCookieStore().getCookies()) {
@@ -134,6 +159,8 @@ public class DouyuLogin extends Thread {
 					System.out.println(cookie);
 					loginCookie = cookie;
 					saveCookie();
+					// 去获取.yuba.douyu.com的cookie（因为有效时间不长，保存在cookieStore中即可）
+					goAuthFishBar(null);
 				} else
 					loginStatus = 8;
 			} else {
@@ -215,9 +242,7 @@ public class DouyuLogin extends Thread {
 	 * @return
 	 */
 	public String authFishBar() {
-		if (loginCookie.contains("acf_yb_auth"))
-			return loginCookie;
-		goAuthFishBar();
+		goAuthFishBar(loginCookie);
 
 		StringBuilder sb = new StringBuilder();
 		for (HttpCookie cookie : util.CurrentCookieManager().getCookieStore().getCookies()) {
@@ -230,24 +255,38 @@ public class DouyuLogin extends Thread {
 		if (cookie.endsWith("; ")) {
 			cookie = cookie.substring(0, cookie.length() - 2);
 		}
-		System.out.println(cookie);
-		loginCookie = cookie;
-		saveCookie();
-		return loginCookie;
+		//System.out.println(cookie);
+		//saveCookie();
+		return cookie;
 	}
 
-	private void goAuthFishBar() {
+	private void goAuthFishBar(String cookie) {
+		//删除.yuba.douyu.com的cookie
+		CookieStore store = util.CurrentCookieManager().getCookieStore();
+		for (HttpCookie httpCookie : new ArrayList<>(store.getCookies())) {
+			try {
+				if(httpCookie.getDomain() != null && httpCookie.getDomain().contains("yuba.douyu.com")) {
+						boolean result = store.remove(new URI(".yuba.douyu.com"), httpCookie);
+						Logger.println("删除yuba cookie： " + result);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		long currtime = System.currentTimeMillis();
 		String callback = RandomUtil.getRandom("1234567890", 16);
 		String url = String.format(
-				"https://passport.douyu.com/lapi/passport/iframe/safeAuth?callback=jQuery%s_%d&client_id=5&did=&t=1571020930757&_=1571020930392",
+				"https://passport.douyu.com/lapi/passport/iframe/safeAuth?callback=jQuery%s_%d&client_id=5&did=&t=%d&_=%d",
 				callback, currtime, currtime + 59, currtime + 1);
 
 		HashMap<String, String> headers = new HashMap<>();
 		headers.put("Accept", "*/*");
 		headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0");
 		headers.put("Referer", "https://yuba.douyu.com/group/16775");
-		headers.put("Cookie", loginCookie);
+		if(cookie != null) {
+			headers.put("Cookie", cookie);
+		}
 
 //		util.getContent(url, headers);
 		String content = util.getContent(url, headers);

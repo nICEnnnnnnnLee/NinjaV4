@@ -52,7 +52,11 @@ public class PathDealer {
 			String pathPrefix = preAnno.path();
 			for (Method method : klass.getMethods()) {
 				Controller controller = method.getAnnotation(Controller.class);
-				if (controller != null && (pathPrefix + controller.path()).equals(path)) {
+				if (controller != null && controller.specificPath().equals(path)) {
+					currentMethod = method;
+					break;
+				}
+				if (controller != null && (controller.specificPath().isEmpty()||!controller.path().isEmpty()) && (pathPrefix + controller.path()).equals(path)) {
 					currentMethod = method;
 					break;
 				}
@@ -81,6 +85,8 @@ public class PathDealer {
 					Value value = (Value) paramAnnos[i][0];
 					if ("postData".equals(value.key()))
 						values[i] = data;
+					else if ("paramData".equals(value.key()))
+						values[i] = param;
 					else
 						values[i] = getValue(param, value.key());
 				} else {
@@ -127,7 +133,7 @@ public class PathDealer {
 			out.write("</a><br/>\r\n<ul>");
 			for (Method method : klass.getMethods()) {
 				Controller controller = method.getAnnotation(Controller.class);
-				if (controller != null) {
+				if (controller != null && (controller.specificPath().isEmpty()||!controller.path().isEmpty()) ) {
 					String methodPath = pathPrefix + controller.path();
 					if (path == null || methodPath.startsWith(path)) {
 						out.write("<li>");

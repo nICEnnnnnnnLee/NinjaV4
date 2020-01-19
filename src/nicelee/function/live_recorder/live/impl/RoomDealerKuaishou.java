@@ -3,11 +3,11 @@ package nicelee.function.live_recorder.live.impl;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import nicelee.common.util.Logger;
 import nicelee.function.live_recorder.live.RoomDealer;
 import nicelee.function.live_recorder.live.domain.RoomInfo;
 import nicelee.function.live_recorder.util.HttpCookies;
 import nicelee.function.live_recorder.util.HttpHeaders;
-import nicelee.function.live_recorder.util.Logger;
 
 
 public class RoomDealerKuaishou extends RoomDealer {

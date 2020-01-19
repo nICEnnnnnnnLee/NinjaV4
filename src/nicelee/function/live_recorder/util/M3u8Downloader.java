@@ -15,6 +15,8 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import nicelee.common.util.Logger;
+
 
 public class M3u8Downloader{
 

@@ -53,3 +53,27 @@ mail_recipientAddress = receiver@sina.com
 mail_senderAccount = sender@sina.com
 mail_senderPassword = xxx
 ```
+
+## :smile:斗鱼登录相关
+```
+对于dex，由于没法从dex包里面读取出资源，需要以下操作：
+  将qrcode.min.js拷贝至config/qrcode.min.js
+```
+
+## :smile:视频录制相关
+```
+对于dex的斗鱼视频录制，由于没法从dex包里面读取出资源，需要以下操作：
+  将crypto-js.min.js拷贝至config/crypto-js.min.js
+
+// 可以是相对路径，也可以是绝对路径。请确保目录下具有读写权限
+downloadDir = download/
+// 录制完毕校正时间戳后是否删除源文件
+deleteOnchecked = true 
+```
+
+## :smile:微信作弊相关  
+参数获取请参见：[此处](http://nicennnnnnnlee.github.io/blog/2020/01/18/weixin-step-counter-cheater-3/)
+```
+weixin_step_refreshCookieUrl = http://steps.chunyuyisheng.com/api/pedometer/contest_start/?union_id=xxx 
+weixin_step_postStepUrl = http://steps.chunyuyisheng.com/robot/p/upload_steps_data/?app=7&platform=android&systemVer=xxx
+```

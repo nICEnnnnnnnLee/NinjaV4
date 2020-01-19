@@ -14,4 +14,6 @@ public @interface Controller {
 	
 	String note();// default "";
 	
+	String specificPath() default "";
+	
 }

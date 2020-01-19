@@ -1,11 +1,12 @@
 package nicelee.server;
 
 import nicelee.global.GlobalConfig;
+import nicelee.server.controller.ControllerWeixinStepCount;
 import nicelee.server.core.SocketServer;
 
 public class MainServer {
 
-	final static String version = "V1.0.4";
+	final static String version = "V1.0.7";
 	public static void main(String[] args) {
 		try {
 			System.out.println(GlobalConfig.baseDirectory());
@@ -14,6 +15,12 @@ public class MainServer {
 		System.out.println("当前版本为 NinjaV4-" + version);
 		// 初始化配置
 		GlobalConfig.init();
+		
+		// 初始化微信计步器
+		if(GlobalConfig.weixin_step_postStepUrl != null)
+			ControllerWeixinStepCount.postStepUrl = GlobalConfig.weixin_step_postStepUrl;
+		if(GlobalConfig.weixin_step_refreshCookieUrl != null)
+			ControllerWeixinStepCount.refreshCookieUrl = GlobalConfig.weixin_step_refreshCookieUrl;
 		
 //		// 初始化MAC地址的备注
 //		new Thread(new Runnable() {

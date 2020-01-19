@@ -29,10 +29,9 @@ public class DouyuGift {
 		try {
 			List<Gift> gifts = new ArrayList<Gift>();
 			HashMap<String, String> headers = new HashMap<>();
-			headers.put("Referer", "https://www.douyu.com/4090043");
+			headers.put("Referer", "https://www.douyu.com/288016");
 			headers.put("Cookie", cookie);
 			String json = util.getContent("https://www.douyu.com/japi/prop/backpack/web/v1?rid=288016", headers);
-			System.out.println(json);
 			JSONArray array = new JSONObject(json).getJSONObject("data").getJSONArray("list");
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
@@ -41,10 +40,11 @@ public class DouyuGift {
 				gift.count = obj.getInt("count");
 				gift.name = obj.getString("name");
 				gifts.add(gift);
-				System.out.printf("礼物id:%d %s 还剩%d", gift.id, gift.name, gift.count);
+				System.out.printf("礼物id:%d %s 还剩%d\n", gift.id, gift.name, gift.count);
 			}
 			return gifts;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -123,7 +123,14 @@ public class DouyuGift {
 		DouyuGift dg = new DouyuGift();
 		List<Gift> list = dg.info(cookie);
 		for (Gift gift : list) {
-			dg.send(cookie, roomNo, realId, gift.id, gift.count);
+			if(gift.id ==268) { // 粉丝荧光棒可以一次性全部送出
+				dg.send(cookie, roomNo, realId, gift.id, gift.count);
+			}else {// 其他礼物一个一个送
+				for(int i=0; i<gift.count; i++) {
+					dg.send(cookie, roomNo, realId, gift.id, 1);
+				}
+			}
+			
 		}
 	}
 }

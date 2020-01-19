@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.TimeZone;
 
 import nicelee.PackageScanLoader;
+import nicelee.common.util.Logger;
 import nicelee.function.live_recorder.enums.StatusEnum;
 import nicelee.function.live_recorder.live.FlvChecker;
 import nicelee.function.live_recorder.live.RoomDealer;
 import nicelee.function.live_recorder.live.domain.RoomInfo;
 import nicelee.function.live_recorder.live.impl.RoomDealerBilibili;
-import nicelee.function.live_recorder.util.Logger;
 import nicelee.global.GlobalConfig;
 
 public class Recorder {
@@ -32,7 +32,7 @@ public class Recorder {
 	public String title; // 简要描述
 
 	public Recorder() {
-		autoCheck = true;
+		autoCheck = GlobalConfig.autoCheck;
 		deleteOnchecked = GlobalConfig.deleteOnchecked;
 		maxFailCnt = 5;
 		Logger.debug = true;

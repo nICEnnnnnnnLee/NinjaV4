@@ -23,6 +23,7 @@ import java.util.zip.GZIPInputStream;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import nicelee.common.util.Logger;
 import nicelee.function.live_recorder.enums.StatusEnum;
 import nicelee.global.GlobalConfig;
 
