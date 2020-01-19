@@ -19,39 +19,6 @@ public class JSEngine {
 //		run(scripts, "ub98484234", "1LDR7QDjyyVvJzx8","2206c59057010dd04573c76400081501","1565146923");
 	}
 	
-	/**
-	 * 初始化DouyuJS
-	 */
-	private static String douyuJS = null;
-	private static String flashmuJS = null;
-	private static void initDouyuJS() {
-		if(douyuJS == null) {
-			StringBuilder sb = new StringBuilder();
-			try {
-				BufferedReader buReader = new BufferedReader(new InputStreamReader(JSEngine.class.getResource("/resources/douyu/douyu.js").openStream()));
-				String line = null;
-				while( (line = buReader.readLine()) != null) {
-					sb.append(line).append("\n");
-				}
-				buReader.close();
-			} catch (IOException e) {
-			}
-			douyuJS = sb.toString();
-		}
-		if(flashmuJS == null) {
-			StringBuilder sb = new StringBuilder();
-			try {
-				BufferedReader buReader = new BufferedReader(new InputStreamReader(JSEngine.class.getResource("/resources/douyu/flashemu.js").openStream()));
-				String line = null;
-				while( (line = buReader.readLine()) != null) {
-					sb.append(line).append("\n");
-				}
-				buReader.close();
-			} catch (IOException e) {
-			}
-			flashmuJS = sb.toString();
-		}
-	}
 	
 	/**
 	 * 初始化CryptoJS
@@ -88,7 +55,7 @@ public class JSEngine {
         try {
         	Scriptable scope = cx.initStandardObjects();
         	
-        	initDouyuJS();
+        	initCryptoJS();
         	cx.evaluateString(scope, initCryptoJS(), "CryptoJS", 1, null);
         	cx.evaluateString(scope, scripts, "douyu_scripts", 1, null);
         	

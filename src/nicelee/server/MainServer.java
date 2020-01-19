@@ -17,9 +17,9 @@ public class MainServer {
 		GlobalConfig.init();
 		
 		// 初始化微信计步器
-		if(GlobalConfig.weixin_step_postStepUrl != null)
+		if(!GlobalConfig.weixin_step_postStepUrl.isEmpty())
 			ControllerWeixinStepCount.postStepUrl = GlobalConfig.weixin_step_postStepUrl;
-		if(GlobalConfig.weixin_step_refreshCookieUrl != null)
+		if(!GlobalConfig.weixin_step_refreshCookieUrl.isEmpty())
 			ControllerWeixinStepCount.refreshCookieUrl = GlobalConfig.weixin_step_refreshCookieUrl;
 		
 //		// 初始化MAC地址的备注

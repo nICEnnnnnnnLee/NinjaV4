@@ -56,9 +56,9 @@ public class GlobalConfig {
 
 
 	// 春雨计步postStepUrl
-	public static String weixin_step_postStepUrl  = null;
+	public static String weixin_step_postStepUrl  = "";
 	// 春雨计步refreshCookieUrl
-	public static String weixin_step_refreshCookieUrl  = null;
+	public static String weixin_step_refreshCookieUrl  = "";
 
 	// 扫描前缀
 	public static String[] ipPrefixs = { "192.168.0.", "192.168.1." };
