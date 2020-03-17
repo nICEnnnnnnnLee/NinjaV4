@@ -12,6 +12,9 @@ import nicelee.server.MainServer;
 
 public class GlobalConfig {
 
+	// 免翻域名
+	public static String magnetDomain = "";
+	
 	// http服务器监听端口
 	public static int httpServerPort = 8888;
 	

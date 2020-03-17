@@ -16,6 +16,7 @@ yoooooooooooo~
 | 斗鱼鱼吧每日签到  | jar/dex |
 | 斗鱼登录(扫二维码获取cookie)  | jar/dex |
 | 微信计步作弊  | jar/dex |
+| 通过id查询磁力  | jar/dex |
     
 ## :smile:如何使用  
 + UTF-8编码方式运行jar/dex包即可，举例：  

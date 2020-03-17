@@ -77,3 +77,9 @@ deleteOnchecked = true
 weixin_step_refreshCookieUrl = http://steps.chunyuyisheng.com/api/pedometer/contest_start/?union_id=xxx 
 weixin_step_postStepUrl = http://steps.chunyuyisheng.com/robot/p/upload_steps_data/?app=7&platform=android&systemVer=xxx
 ```
+
+## :smile:磁力查询相关  
+```
+免翻域名， 比如xxxbus
+magnetDomain = www.xxx.com
+```
