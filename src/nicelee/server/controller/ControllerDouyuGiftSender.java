@@ -94,6 +94,20 @@ public class ControllerDouyuGiftSender {
 		return daily.signAtBarsFollowed(DouyuLogin.getCookie(), 20, 1);
 	}
 	
+	@Controller(path = "/douyu/signDaily", note = "日常签到")
+	public String signDaily(BufferedWriter out) {
+		DouyuDailyTask daily = new DouyuDailyTask();
+		try {
+			out.write(daily.signDailyPC(DouyuLogin.getCookie()));
+			if(!GlobalConfig.douyuMotorcadeId.isEmpty()) {
+				out.write(daily.signMotorcade(DouyuLogin.getCookie(), GlobalConfig.douyuMotorcadeId));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	@Controller(path = "/douyu/signAtRooms", note = "在关注列表里前6个当前正在直播的直播间签到")
 	public String signAtRoom(BufferedWriter out) {
 		DouyuDailyTask daily = new DouyuDailyTask();

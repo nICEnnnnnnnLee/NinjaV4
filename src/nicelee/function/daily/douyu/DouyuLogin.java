@@ -110,8 +110,13 @@ public class DouyuLogin extends Thread {
 			CookieStore cookieStore = util.CurrentCookieManager().getCookieStore();
 			String dy_did = RandomUtil.getRandom("1234567890abcdefghijklmnopqrstuvwxyz", 32);
 			HttpCookie idCookie = new HttpCookie("dy_did", dy_did);
+//			idCookie.setDomain(".douyu.com");
+//			idCookie.setPath("/");
 			cookieStore.add(new URI(".douyu.com"), idCookie);
+			
 			idCookie = new HttpCookie("acf_did", dy_did);
+//			idCookie.setDomain(".douyu.com");
+//			idCookie.setPath("/");
 			cookieStore.add(new URI(".douyu.com"), idCookie);
 			
 			loginStatus = 0;
@@ -260,7 +265,7 @@ public class DouyuLogin extends Thread {
 		return cookie;
 	}
 
-	private void goAuthFishBar(String cookie) {
+	public void goAuthFishBar(String cookie) {
 		//删除.yuba.douyu.com的cookie
 		CookieStore store = util.CurrentCookieManager().getCookieStore();
 		for (HttpCookie httpCookie : new ArrayList<>(store.getCookies())) {
@@ -291,5 +296,26 @@ public class DouyuLogin extends Thread {
 //		util.getContent(url, headers);
 		String content = util.getContent(url, headers);
 		System.out.println(content);
+	}
+	
+	public void goAuthMsgDomain(String cookie) {
+		
+		long currtime = System.currentTimeMillis();
+		String callback = RandomUtil.getRandom("1234567890", 5);
+		String url = String.format(
+				"https://passport.douyu.com/lapi/passport/iframe/safeAuth?client_id=93&did=&t=%d&callback=jsonp_%d_%s",
+				currtime, currtime + 1, callback);
+		
+		HashMap<String, String> headers = new HashMap<>();
+		headers.put("Accept", "*/*");
+		headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0");
+		headers.put("Referer", "https://msg.douyu.com/web/index.html?close=1&t=" + currtime);
+		if(cookie != null) {
+			headers.put("Cookie", cookie);
+		}
+		
+//		util.getContent(url, headers);
+		String content = util.getContent(url, headers);
+		Logger.println(content);
 	}
 }

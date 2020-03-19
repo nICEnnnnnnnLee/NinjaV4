@@ -12,6 +12,9 @@ import nicelee.server.MainServer;
 
 public class GlobalConfig {
 
+	// douyu 车队id
+	public static String douyuMotorcadeId = "";
+	
 	// 免翻域名
 	public static String magnetDomain = "";
 	

@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import nicelee.common.util.HttpRequestUtil;
+import nicelee.common.util.Logger;
 import nicelee.function.daily.douyu.domain.Gift;
 
 public class DouyuGift {
@@ -32,6 +33,7 @@ public class DouyuGift {
 			headers.put("Referer", "https://www.douyu.com/288016");
 			headers.put("Cookie", cookie);
 			String json = util.getContent("https://www.douyu.com/japi/prop/backpack/web/v1?rid=288016", headers);
+			//Logger.println(json);
 			JSONArray array = new JSONObject(json).getJSONObject("data").getJSONArray("list");
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
