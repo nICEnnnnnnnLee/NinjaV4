@@ -14,6 +14,8 @@ yoooooooooooo~
 | 斗鱼养粉丝牌  | jar/dex |
 | 斗鱼鱼塘任务奖品领取  | jar/dex |
 | 斗鱼鱼吧每日签到  | jar/dex |
+| 斗鱼客户端每日签到  | jar/dex |
+| 斗鱼车队每日签到  | jar/dex |
 | 斗鱼登录(扫二维码获取cookie)  | jar/dex |
 | 微信计步作弊  | jar/dex |
 | 通过id查询磁力  | jar/dex |
@@ -129,6 +131,7 @@ public class ControllerTester {
 + [通过HTTP请求上传/更新Github文件](https://github.com/nICEnnnnnnnLee/FileUploader4Github)  
 + [Dex包解析扫描](https://gitee.com/mazaiting/app_protection/tree/master/ParseDEX)  
 + [微信计步作弊原理](https://nICEnnnnnnnLee.github.io/blog/2019/12/07/weixin-step-counter-cheater-2/?from=NinjaV4.github)
++ [斗鱼客户端+车队签到](https://github.com/qianjiachun/douyuEx)
 
 ## :smile:第三方使用声明   
 + 使用[JSON.org](https://github.com/stleary/JSON-java)库做简单的Json解析[![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/stleary/JSON-java/blob/master/LICENSE) 

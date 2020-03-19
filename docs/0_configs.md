@@ -60,6 +60,14 @@ mail_senderPassword = xxx
   将qrcode.min.js拷贝至config/qrcode.min.js
 ```
 
+## :smile:斗鱼签到相关
+```
+// 斗鱼账号所在车队id
+// 打开https://msg.douyu.com/motorcade/#/motorcade/list/recommend, 可以搜索或者查看自己的车队id
+// 一般可以从url中提取，此时需注意unescape操作
+douyuMotorcadeId = @TGS#4UIILTYFJ
+```
+
 ## :smile:视频录制相关
 ```
 对于dex的斗鱼视频录制，由于没法从dex包里面读取出资源，需要以下操作：

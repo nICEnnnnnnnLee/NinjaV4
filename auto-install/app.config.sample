@@ -29,3 +29,10 @@ mail_senderPassword = 密码
 # http插件： https://github.com/richardchien/coolq-http-api
 ## 插件所在的服务器ip + 配置端口(用于信息发送用途)
 coolQ_httpApi_Addr = http://192.168.0.103:5701
+## 磁力免翻域名
+magnetDomain = www.seedmm.cloud
+##
+## 斗鱼账号所在车队id
+## 打开https://msg.douyu.com/motorcade/#/motorcade/list/recommend, 可以搜索或者查看自己的车队id
+## 一般可以从url中提取，此时需注意unescape操作
+douyuMotorcadeId = @TGS#4UIILTYFJ
