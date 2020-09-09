@@ -1,4 +1,6 @@
 ## UPDATE  
+* 1.0.10
+    * 微信计步作弊由春雨改为乐心
 * 1.0.9
 	* 新增斗鱼每日签到 + 车队签到功能(参考[](https://github.com/qianjiachun/douyuEx))
 * 1.0.8

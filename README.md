@@ -31,7 +31,6 @@ nohup dalvikvm -cp ninjaV4.dex nicelee.server.MainServer >/dev/null 2>&1 &
 + 请务必注意**配置文件**的相应配置  
 [此处](docs/0_configs.md)列有相应配置  
 
-+ [微信计步作弊功能使用说明书](http://nicennnnnnnlee.github.io/blog/2020/01/18/weixin-step-counter-cheater-3/?from=NinjaV4.github)
 + 关于dex包  
     + Android的虚拟Linux环境内dalvikvm与常见jvm存在差异(除非你再套一层，使用jvm)  
     + Android熄屏后定时操作存在问题  
