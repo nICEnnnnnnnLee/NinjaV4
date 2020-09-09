@@ -1,17 +1,27 @@
 package nicelee.global;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import nicelee.common.util.geoip.IPSeeker;
 import nicelee.server.MainServer;
 
 public class GlobalConfig {
 
+	// 谁在窥屏专用
+	public static String whoIsOnlinePicFile = "";
+	public static byte[] whoIsOnlinePic;
+	public static byte[] whoIsOnlineIndex;
+	public static String geoIpDir = "D:\\Work\\WinMTR-CN-IP\\";
+	
 	// douyu 车队id
 	public static String douyuMotorcadeId = "";
 	
@@ -104,6 +114,44 @@ public class GlobalConfig {
 					} catch (Exception e) {
 					} 
 				}
+			}
+			// 初始化 谁在窥屏
+			IPSeeker.getInstance().init("qqwry.dat", geoIpDir);
+			try {
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				InputStream in = null;
+				try{
+					in = GlobalConfig.class.getResource("/resources/favicon.jpg").openStream();
+				}catch (Exception e) {
+					in = new FileInputStream(whoIsOnlinePicFile);
+				}
+				byte[] buffer = new byte[2048];
+				int len = in.read(buffer);
+				while(len >= 0) {
+					out.write(buffer, 0, len);
+					len = in.read(buffer);
+				}
+				in.close();
+				whoIsOnlinePic = out.toByteArray();
+			}catch (Exception e) {
+			}
+			try {
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				InputStream in = null;
+				try{
+					in = GlobalConfig.class.getResource("/resources/index.html").openStream();
+				}catch (Exception e) {
+					in = new FileInputStream(new File(configDir, "index.html"));
+				}
+				byte[] buffer = new byte[2048];
+				int len = in.read(buffer);
+				while(len >= 0) {
+					out.write(buffer, 0, len);
+					len = in.read(buffer);
+				}
+				in.close();
+				whoIsOnlineIndex = out.toByteArray();
+			}catch (Exception e) {
 			}
 		} catch (IOException e) {
 			// e.printStackTrace();
