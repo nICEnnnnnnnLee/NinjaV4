@@ -71,10 +71,14 @@ public class GlobalConfig {
 	public static boolean autoCheck  = false;
 
 
-	// 春雨计步postStepUrl
-	public static String weixin_step_postStepUrl  = "";
-	// 春雨计步refreshCookieUrl
-	public static String weixin_step_refreshCookieUrl  = "";
+	// 乐心运动 用户名(手机号)
+	public static String weixin_step_userName  = "";
+	// 乐心运动 密码
+	public static String weixin_step_userPwd  = "";
+	// 乐心运动 手机IMEI号
+	public static String weixin_step_IMEI  = "";
+	// 乐心运动 clientId(可以随机生成，可以不填)
+	public static String weixin_step_clientId  = "";
 
 	// 扫描前缀
 	public static String[] ipPrefixs = { "192.168.0.", "192.168.1." };
