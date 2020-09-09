@@ -2,8 +2,11 @@ package nicelee.server.core;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.net.Socket;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,27 +16,37 @@ import nicelee.common.annotation.Value;
 
 public class PathDealer {
 
+	protected Socket socketClient;
+	
+	public PathDealer() {
+	}
+	
+	public PathDealer(Socket socketClient) {
+		this.socketClient = socketClient;
+	}
 	/**
 	 * 处理请求
 	 * 
 	 * @param out
+	 * @param outRaw
 	 * @param path  请求路径
 	 * @param param 请求参数?号后面那一坨
 	 * @param data  POST的内容，GET为null
+	 * @param headersMap  头部
 	 * @throws IOException
 	 */
-	public void dealRequest(BufferedWriter out, String path, String param, String data) throws IOException {
-		dealRequest(out, path, param, data, false);
+	public void dealRequest(BufferedWriter out, OutputStream outRaw, String path, String param, String data, HashMap<String, String> headersMap) throws IOException {
+		dealRequest(out, outRaw, path, param, data, headersMap, false);
 	}
 
-	public void dealRequest(BufferedWriter out, String path, String param, String data, boolean isCmd)
+	public void dealRequest(BufferedWriter out, OutputStream outRaw, String path, String param, String data, HashMap<String, String> headersMap, boolean isCmd)
 			throws IOException {
 		// 遍历Controller类，得到和Path匹配的处理方法, 目前仅一个Class
 		Method currentMethod = null;
 		currentMethod = findMethod(path, currentMethod);
 		// 找到Method方法后，根据param给Method变量赋值
 		if (currentMethod != null) {
-			dealWithPathKnown(out, param, data, currentMethod);
+			dealWithPathKnown(out, outRaw, param, data, currentMethod, headersMap);
 		} else {
 			dealWithPathUnknown(out, path, isCmd);
 		}
@@ -66,12 +79,14 @@ public class PathDealer {
 	}
 
 	/**
+	 * 
+	 * @param out
 	 * @param param
+	 * @param data
 	 * @param currentMethod
-	 * @param klass
-	 * @throws Exception
+	 * @param headersMap
 	 */
-	private void dealWithPathKnown(BufferedWriter out, String param, String data, Method currentMethod) {
+	private void dealWithPathKnown(BufferedWriter out, OutputStream outRaw, String param, String data, Method currentMethod, HashMap<String, String> headersMap) {
 		Class<?> klass = currentMethod.getDeclaringClass();
 		Annotation[][] paramAnnos = currentMethod.getParameterAnnotations();
 		Class<?>[] paramTypes = currentMethod.getParameterTypes();
@@ -80,11 +95,15 @@ public class PathDealer {
 			// 如果是BufferedWriter，那么直接赋值，否则从params中找
 			if (paramTypes[i] == BufferedWriter.class) {
 				values[i] = out;
+			} else if (paramTypes[i] == OutputStream.class) {
+				values[i] = outRaw;
 			} else {
 				if (paramAnnos[i].length > 0) {
 					Value value = (Value) paramAnnos[i][0];
 					if ("postData".equals(value.key()))
 						values[i] = data;
+					if ("ipData".equals(value.key()))
+						values[i] = getRealIpAddr(headersMap);
 					else if ("paramData".equals(value.key()))
 						values[i] = param;
 					else
@@ -167,4 +186,46 @@ public class PathDealer {
 		}
 		return null;
 	}
+	
+	/** 
+     * 获取用户真实IP地址
+     *  
+     * @return ip
+     */
+    private String getRealIpAddr(HashMap<String, String> headersMap) {
+        String ip = headersMap.get("x-forwarded-for"); 
+        //System.out.println("x-forwarded-for ip: " + ip);
+        if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {  
+            // 多次反向代理后会有多个ip值，第一个ip才是真实ip
+            if( ip.indexOf(",")!=-1 ){
+                ip = ip.split(",")[0];
+            }
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = headersMap.get("proxy-client-ip");  
+            //System.out.println("Proxy-Client-IP ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = headersMap.get("wl-proxy-client-ip");  
+            //System.out.println("WL-Proxy-Client-IP ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = headersMap.get("http_client_ip");  
+            //System.out.println("HTTP_CLIENT_IP ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = headersMap.get("http_x_forwarded_for");  
+            //System.out.println("HTTP_X_FORWARDED_FOR ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = headersMap.get("x-real-ip");  
+            //System.out.println("X-Real-IP ip: " + ip);
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = socketClient.getInetAddress().toString().replace("/", "");  
+            //System.out.println("getRemoteAddr ip: " + ip);
+        } 
+        //System.out.println("获取客户端ip: " + ip);
+        return ip;  
+    }
 }

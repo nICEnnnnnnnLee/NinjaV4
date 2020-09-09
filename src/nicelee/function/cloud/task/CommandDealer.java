@@ -61,7 +61,7 @@ public class CommandDealer {
 					if(path.startsWith("/cloud/history/delete") || path.startsWith("/cloud/run")) {
 						out.write("该命令只能本地执行");
 					}else {
-						dealer.dealRequest(out, path, param, null, true);
+						dealer.dealRequest(out, null, path, param, null, null, true);
 					}
 					out.newLine();
 					// 执行后，在列表中去除任务

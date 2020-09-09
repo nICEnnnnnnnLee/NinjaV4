@@ -4,33 +4,37 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SocketDealer extends PathDealer implements Runnable {
 
-	Socket socketClient;
-
 	// 与客户端之间的联系
 	BufferedReader in;
 	BufferedWriter out;
+	OutputStream outRaw;
 
 	public SocketDealer(Socket socketClient) {
-		this.socketClient = socketClient;
+		super(socketClient);
 	}
 
 	final static Pattern urlPattern = Pattern.compile("^(?:GET|POST) ([^ \\?]+)\\??([^ \\?]*) HTTP.*$");
 	final static Pattern contentLengthPattern = Pattern.compile("^content-length *: *([0-9]+)$");
+	final static Pattern headersPattern = Pattern.compile("^([^:]+) *: *(.+)$");
 	@Override
 	public void run() {
 		String path = null, param = null, data = null;
+		HashMap<String, String> headersMap = new HashMap<>(16, 0.999f);
 		int dataLen = -1;
 		try {
 			in = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
-			out = new BufferedWriter(new OutputStreamWriter(socketClient.getOutputStream()));
+			outRaw = socketClient.getOutputStream();
+			out = new BufferedWriter(new OutputStreamWriter(outRaw));
 			
 			// 读取url请求
 			String line = null;
@@ -50,6 +54,13 @@ public class SocketDealer extends PathDealer implements Runnable {
 					dataLen = Integer.parseInt(matcher.group(1));
 				}
 				
+				// 处理headers
+				matcher = headersPattern.matcher(line.toLowerCase());
+				if(matcher.find()) {
+					headersMap.put(matcher.group(1), matcher.group(2));
+					//System.out.printf("header-%s : %s\r\n", matcher.group(1), matcher.group(2));
+				}
+				
 				// 处理结尾
 				if(line.length() == 0) {
 					if(dataLen > 0) {
@@ -64,11 +75,16 @@ public class SocketDealer extends PathDealer implements Runnable {
 			
 			// 返回结果
 			out.write("HTTP/1.1 200 OK\r\n");
-			out.write("Content-Type: text/html; charset=UTF-8\r\n");
+			String acc = headersMap.get("accept");
+			if((path != null && path.endsWith(".jpg")) || (acc != null && acc.startsWith("image")))
+				out.write("Content-Type: image/jpeg\r\n");
+			else
+				out.write("Content-Type: text/html; charset=UTF-8\r\n");
 //			out.write("Content-Length: "+ html.length()+ "\r\n");
 			out.write("\r\n");
+			out.flush();
 			// 处理请求并返回内容
-			dealRequest(out, path, param, data);
+			dealRequest(out, outRaw, path, param, data, headersMap);
 			out.write("\r\n");
 			out.flush();
 			
