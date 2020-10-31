@@ -70,7 +70,11 @@ public class GlobalConfig {
 	// 录制完毕是否自动校正时间戳后
 	public static boolean autoCheck  = false;
 
-
+	// 春雨计步postStepUrl
+	public static String weixin_step_postStepUrl  = "http://steps.chunyuyisheng.com/robot/p/upload_steps_data/?";
+	// 春雨计步refreshCookieUrl
+	public static String weixin_step_refreshCookieUrl  = "http://steps.chunyuyisheng.com/api/pedometer/contest_start/?";
+	
 	// 乐心运动 用户名(手机号)
 	public static String weixin_step_userName  = "";
 	// 乐心运动 密码
