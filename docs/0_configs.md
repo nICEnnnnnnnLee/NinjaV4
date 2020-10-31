@@ -80,6 +80,13 @@ deleteOnchecked = true
 ```
 
 ## :smile:微信作弊相关  
+春雨参数获取请参见：[此处](http://nicennnnnnnlee.github.io/blog/2020/01/18/weixin-step-counter-cheater-3/)
+```
+weixin_step_refreshCookieUrl = http://steps.chunyuyisheng.com/api/pedometer/contest_start/?union_id=xxx 
+weixin_step_postStepUrl = http://steps.chunyuyisheng.com/robot/p/upload_steps_data/?app=7&platform=android&systemVer=xxx
+```
+
+###乐心运动
 ```
 请先将乐心运动账号绑定微信，同时设置密码(注册时应该是用的是验证码，这时候是没有密码的。)
 // 乐心运动 用户名(手机号)
