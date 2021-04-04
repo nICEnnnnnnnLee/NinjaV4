@@ -17,8 +17,8 @@ import nicelee.global.GlobalConfig;
 
 public abstract class PackageScanLoader {
 
-	public static HashMap<String, Class<?>> dealerClazz;
-	public static List<Class<?>> controllerClazzes;
+	public static HashMap<String, java.lang.Class<?>> dealerClazz;
+	public static List<java.lang.Class<?>> controllerClazzes;
 	
 	public static boolean isJVM = true;
 	static {
@@ -44,7 +44,7 @@ public abstract class PackageScanLoader {
 		dealerClazz = new HashMap<>();
 		PackageScanLoader pLoader = new PackageScanLoader() {
 			@Override
-			public boolean isValid(Class<?> clazz) {
+			public boolean isValid(java.lang.Class<?> clazz) {
 				try {
 					String liver = (String) clazz.getField("liver").get(null);
 					dealerClazz.put(liver, clazz);
@@ -58,10 +58,10 @@ public abstract class PackageScanLoader {
 		pLoader.scanRoot("nicelee.function.live_recorder.live.impl");
 
 		// 扫描包，加载 controller 类
-		controllerClazzes = new ArrayList<Class<?>>();
+		controllerClazzes = new ArrayList<java.lang.Class<?>>();
 		pLoader = new PackageScanLoader() {
 			@Override
-			public boolean isValid(Class<?> clazz) {
+			public boolean isValid(java.lang.Class<?> clazz) {
 				if (clazz.getAnnotation(Controller.class) != null) {
 					// System.out.println(clazz.getName());
 					controllerClazzes.add(clazz);
@@ -73,12 +73,12 @@ public abstract class PackageScanLoader {
 	}
 
 	/**
-	 * Class 类型是否符合预期，如果是，则加入列表
+	 * java.lang.Class 类型是否符合预期，如果是，则加入列表
 	 * 
 	 * @param klass
 	 * @return
 	 */
-	public abstract boolean isValid(Class<?> clazz);
+	public abstract boolean isValid(java.lang.Class<?> clazz);
 
 	public void scanRoot(String packName) {
 		if(isJVM) {
@@ -163,7 +163,7 @@ public abstract class PackageScanLoader {
 	private void deaWithJavaClazzFile(String packNameWithDot, File file) {
 		int index = file.getName().lastIndexOf(".class");
 		String filename = file.getName().substring(0, index);
-		Class<?> klass = null;
+		java.lang.Class<?> klass = null;
 		try {
 			klass = Class.forName(packNameWithDot + "." + filename);
 			isValid(klass);
@@ -189,7 +189,7 @@ public abstract class PackageScanLoader {
 				String jarName = jar.getName();
 				int dotIndex = jarName.indexOf(".class");
 				String className = jarName.substring(0, dotIndex).replace("/", ".");
-				Class<?> klass = Class.forName(className);
+				java.lang.Class<?> klass = Class.forName(className);
 				isValid(klass);
 			}
 		} catch (IOException e) {
