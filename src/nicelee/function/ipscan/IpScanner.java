@@ -15,8 +15,6 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import nicelee.global.GlobalConfig;
-
 /**
  * 
  * 实现对mac地址dealResult(Map<String, String> resultMap)
@@ -37,23 +35,6 @@ public abstract class IpScanner {
 		DatagramSocket socket;
 		try {
 			boolean inList = false;
-			for (String prefix : GlobalConfig.ipPrefixs) {
-				if (prefix.equals(substring)) {
-					inList = true;
-				}
-				socket = new DatagramSocket();
-				int position = 2;
-				while (position < 255) {
-					dp.setAddress(InetAddress.getByName(prefix + String.valueOf(position)));
-					socket.send(dp);
-					position++;
-					if (position == 125) {// 分两段掉包，一次性发的话，达到236左右，会耗时3秒左右再往下发
-						socket.close();
-						socket = new DatagramSocket();
-					}
-				}
-				socket.close();
-			}
 			if (!inList) {
 				socket = new DatagramSocket();
 				int position = 2;
@@ -87,7 +68,7 @@ public abstract class IpScanner {
 			final ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
 			// 分系统进行判断
 			String os = System.getProperty("os.name").toLowerCase();
-			if(os.startsWith("win")) {
+			if (os.startsWith("win")) {
 				// windows只考虑动态ip对应的MAC, 假设cmd为GBK编码
 				Process exec = Runtime.getRuntime().exec("arp -a");
 				InputStream is = exec.getInputStream();
@@ -99,7 +80,7 @@ public abstract class IpScanner {
 						map.put(split[2].replace("-", ":"), split[1].replace("-", ":"));// mac ip
 					}
 				}
-			}else {
+			} else {
 				Process exec = Runtime.getRuntime().exec("cat /proc/net/arp");
 				InputStream is = exec.getInputStream();
 				BufferedReader reader = new BufferedReader(new InputStreamReader(is));

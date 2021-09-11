@@ -1,4 +1,4 @@
-package nicelee.test.junit;
+package test.junit;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;

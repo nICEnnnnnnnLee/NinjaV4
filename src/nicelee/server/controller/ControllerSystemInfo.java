@@ -30,21 +30,4 @@ public class ControllerSystemInfo {
 		return null;
 	}
 	
-	@Controller(path = "/space/download", note = "获取下载目录可用空间信息")
-	public String downloadSpaceInfo(BufferedWriter out) {
-		try {
-			File file = GlobalConfig.downloadDir;
-			
-			out.write(file.getCanonicalPath());
-			out.write("<br/>\n");
-			String totalSpace = String.format("总空间：%.2f GB<br/>\n", ((double)file.getTotalSpace())/1024/1024/1024);
-			String freeSpace = String.format("可用空间：%.2f GB<br/>\n", ((double)file.getFreeSpace())/1024/1024/1024);
-			out.write(totalSpace);
-			out.write(freeSpace);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
 }

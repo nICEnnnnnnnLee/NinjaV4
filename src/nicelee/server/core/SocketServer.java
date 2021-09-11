@@ -31,6 +31,7 @@ public class SocketServer {
 	 */
 	public void stopServer() {
 		try {
+			isRun = false;
 			serverSocket.close();
 		} catch (IOException e) {
 			e.printStackTrace();

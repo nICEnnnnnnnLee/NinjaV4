@@ -1,4 +1,4 @@
-package nicelee.test.junit;
+package test.junit;
 
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;

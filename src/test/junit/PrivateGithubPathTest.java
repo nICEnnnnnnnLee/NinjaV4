@@ -1,4 +1,4 @@
-package nicelee.test.junit;
+package test.junit;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
